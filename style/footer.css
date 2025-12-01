@@ -1,0 +1,27 @@
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: inherit;
+  height: var(--footer-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  background-color: var(--brand-logo-background);
+  box-sizing: 0;
+}
+
+.footer a, a:link, a:visited, a:active {
+  display: block;
+  text-decoration: underline;
+  text-align: center;
+  color: var(--brand-secondary-variant);
+}
+
+.footer a:hover {
+  color: var(--brand-primary-variant);
+}
+
+.footer a:active {
+  color: var(--brand-on-primary);
+}

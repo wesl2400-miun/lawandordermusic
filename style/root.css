@@ -1,0 +1,35 @@
+/** Definiera färger, återanvändbara mått och teckensnitt **/
+:root {
+  --brand-primary: #52D4FF;
+  --brand-primary-variant: #006080;
+  --brand-secondary: #FFA8F6;
+  --brand-secondary-variant: #A30093;
+  --brand-logo-background: #FFFFFF;
+  --brand-background: #363636;
+  --brand-surface: #425C61;
+  --brand-on-primary: #363636;
+  --brand-on-secondary: #363636;
+  --brand-on-background: #FFFFFF;
+  --brand-on-surface: #FFFFFF;
+  font-family: "Rethink Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  --full-vw: 100vw;
+  --nav-height: 40px;
+  --nav-height-collapsed: 85vh;
+  --page-title-height: 40px;
+  --footer-height: 60px;
+}
+
+/** Stilisera body-taggen och gör den anpassbar **/
+body {
+  width: var(--full-vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}

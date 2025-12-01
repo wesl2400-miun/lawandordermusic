@@ -3,14 +3,63 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Experimental DNB Tracks | Law & Order Official Site</title>
+    <title>Store - Listen to Drum & Bass Tracks | Law & Order Official Site</title>
 
+    <!-- Hämta CSS stilar -->
     <link rel="stylesheet" href="./style/root.css">
-    
+    <link rel="stylesheet" href="./style/logo.css">
+    <link rel="stylesheet" href="./style/motion.css">
+    <link rel="stylesheet" href="./style/header.css">
+    <link rel="stylesheet" href="./style/nav.css">
+    <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/footer.css">
+
+    <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte tolkas -->
+    <link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="./assets/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Law & Order Music" />
+
+    <!-- Detta är 'manifest-filen för Android enheter -->
+    <link rel="manifest" href="./assets/favicon/site.webmanifest" />
   </head>
   <body>
+    <!-- Sidhuvud -->
+    <header>
+      <nav class="nav">
 
+        <!-- Logotypen -->
+        <div class="logo">
+          <a href="./index.html">
+            <img alt="Logo" src="./assets/logo.svg">
+          </a>
+        </div>
 
-    <script src="./main.js"></script>
+        <!-- Använd Aria etikett enligt WCAG:s bästa praxis, eftersom bild taggen fungerar som en knapp -->
+        <button aria-label="Open Menu">
+          <img id="menu-btn" alt="" src="./assets/menu-closed.svg">
+        </button>
+
+        <!-- Navigeringslänkar - visas när meny-knappen pressas -->
+        <ul id="routes">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./about.html">About</a></li>
+          <li><a href="./videos.html">Videos</a></li>
+          <li><a class="selected" href="./store.html">Store</a></li>
+          <li><a href="./cart.html">Cart</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- Huvudinnehållet -->
+    <main id="main">
+      <h1>Store</h1>
+    </main>
+
+    <footer class="footer">
+      <a href="./info.html">About Website (Swedish)</a>
+    </footer>
+    <!-- Kör logiken för navigeringsmenyn -->
+    <script src="./menu.js"></script>
   </body>
 </html>

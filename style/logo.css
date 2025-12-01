@@ -1,0 +1,14 @@
+/** Stilisera logotypen **/
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo a {
+  display: block;
+}
+
+.logo img {
+  height: 100px;
+}

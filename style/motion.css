@@ -1,0 +1,17 @@
+@keyframes open-menu {
+  from {
+    height: var(--nav-height);
+  }
+  to {
+    height: var(--nav-height-collapsed);
+  }
+}
+
+@keyframes close-menu {
+  from {
+    transform: translateY(var(--nav-height-collapsed));
+  }
+  to {
+    transform: translateY(0);
+  }
+}

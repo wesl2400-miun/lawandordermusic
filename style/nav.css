@@ -1,0 +1,67 @@
+/** Stilisera navigationsfältet **/
+.nav {
+  width: var(--full-vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/** Ta bort stilen från navigerinsknappen, eftersom navigerinsbilden ska ersätta stilen **/
+.nav button {
+  width: var(--full-vw);
+  height: var(--nav-height);
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: var(--brand-background);
+  border: none;
+  border-bottom: 1px var(--brand-on-background) solid;
+  padding: 0 0.4rem;
+}
+
+#routes {
+  width: var(--full-vw);
+  height: var(--nav-height-collapsed);
+  display: none;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--brand-background);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#routes li {
+  width: inherit;
+  padding: 0.7rem 0;
+  text-align: center;
+  font-size: 20px;
+  border-bottom: 1px var(--brand-on-background) solid;
+}
+
+#routes .selected {
+  color: var(--brand-primary);
+  text-decoration: none;
+  list-style: none;
+}
+
+#routes a, a:link, a:visited {
+  display: block;
+  text-decoration: none;
+  color: var(--brand-on-background);
+}
+
+#routes a:hover, .selected:hover {
+  color: var(--brand-secondary);
+}
+
+#routes a:active, .selected:active {
+  color: var(--brand-on-background);
+}
+
+#menu-btn {
+  height: 30px;
+  cursor: pointer;
+}
