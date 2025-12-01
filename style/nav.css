@@ -17,7 +17,7 @@
   background-color: var(--brand-background);
   border: none;
   border-bottom: 1px var(--brand-on-background) solid;
-  padding: 0 0.4rem;
+  padding-right: 0.6rem;
 }
 
 #routes {
