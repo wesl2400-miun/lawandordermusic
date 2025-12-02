@@ -1,0 +1,60 @@
+.action-bar {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  flex-direction: row;
+  gap: 0.3rem;
+}
+
+.action-bar audio {
+  width: 50px;
+  border-radius: 5px;
+}
+
+.action-bar .info {
+  all: unset;
+  width: 40px;
+  height: 40px;
+  background: url('../assets/info.png');
+}
+
+.action-bar .info:hover {
+  background: url('../assets/info-hover.png');
+}
+
+.action-bar .info:active {
+  background: url('../assets/info-active.png');
+}
+
+.action-bar .cart {
+  all: unset;
+  width: 40px;
+  height: 40px;
+  background: url('../assets/cart.png');
+}
+
+.action-bar .cart:hover {
+  background: url('../assets/cart-hover.png');
+}
+
+.action-bar .cart:active {
+  background: url('../assets/cart-active.png');
+}
+
+.action-bar .trash {
+  all: unset;
+  width: 40px;
+  height: 40px;
+  background: url('../assets/trash.png');
+}
+
+.action-bar .trash:hover {
+  background: url('../assets/trash-hover.png');
+}
+
+.action-bar .trash:active {
+  background: url('../assets/trash-active.png');
+}
+
+
+

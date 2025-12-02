@@ -1,0 +1,31 @@
+.store-card {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: row;
+  width: 95%;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: start;
+  background-color: var(--brand-background);
+  color: var(--brand-on-background);
+  border-radius: 5px;
+  gap: 1rem;
+}
+
+.store-card .details {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.store-card img {
+  height: 100px;
+}
+
+
+
+

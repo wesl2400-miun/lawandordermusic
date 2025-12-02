@@ -1,0 +1,28 @@
+.video-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  background-color: var(--brand-background);
+  color: var(--brand-on-background);
+  border-radius: 5px;
+  gap: 1rem;
+}
+
+.video-card .clip {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.video-card .clip video {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border-radius: 5px;
+}

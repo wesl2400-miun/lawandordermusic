@@ -1,0 +1,15 @@
+.basic-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 95%;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  background-color: var(--brand-background);
+  color: var(--brand-on-background);
+  border-radius: 5px;
+  gap: 1rem;
+}

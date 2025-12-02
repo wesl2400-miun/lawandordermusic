@@ -16,7 +16,6 @@
   align-items: center;
   background-color: var(--brand-background);
   border: none;
-  border-bottom: 1px var(--brand-on-background) solid;
   padding-right: 0.6rem;
 }
 
@@ -33,11 +32,15 @@
   margin: 0;
 }
 
+#routes li:last-child {
+  border-bottom: 1px var(--brand-on-background) solid;
+}
+
 #routes li {
   width: inherit;
   text-align: center;
   font-size: 20px;
-  border-bottom: 1px var(--brand-on-background) solid;
+  border-top: 1px var(--brand-on-background) solid;
 }
 
 #routes .selected {
