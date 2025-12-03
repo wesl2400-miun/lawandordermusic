@@ -13,7 +13,8 @@ const initTag = (type, css = null, parent = null, text = null) => {
 
 const refreshCart = () => {
   const cartBtn = getRef('cart-btn');
-  const value = sessionStorage.length;
+  let value = sessionStorage.length;
+  if(sessionStorage.getItem(REF.CURRENT)) value--;
   cartBtn.textContent = `GO TO CART: ${value}`
 }
 
