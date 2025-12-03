@@ -20,8 +20,8 @@ const refreshCart = () => {
 
 const REF = Object.freeze({
   CURRENT: 'CURRENT',
-  STORE: '/store.html',
-  CART: '/cart.html',
+  STORE: '/lawandorder/store.html',
+  CART: '/lawandorder/cart.html',
   BULLETPROOF: 'BULLETPROOF',
   SURVEILLANCE: 'SURVEILLANCE',
   TWO_STEPS_AHEAD: 'TWO_STEPS_AHEAD',
@@ -217,5 +217,4 @@ window.addEventListener('load', () => {
     )]
   ]);
   renderStore(tracks);
-  console.log('im working')
 });
