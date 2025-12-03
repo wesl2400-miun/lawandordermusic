@@ -20,8 +20,8 @@ const refreshCart = () => {
 
 const REF = Object.freeze({
   CURRENT: 'CURRENT',
-  STORE: '/lawandordermusic/store.html',
-  CART: '/lawandordermusic/cart.html',
+  STORE: 'https://wesl2400-miun.github.io/lawandordermusic/store.html',
+  CART: 'https://wesl2400-miun.github.io/lawandordermusic/cart.html',
   BULLETPROOF: 'BULLETPROOF',
   SURVEILLANCE: 'SURVEILLANCE',
   TWO_STEPS_AHEAD: 'TWO_STEPS_AHEAD',
@@ -78,7 +78,7 @@ class ActBarView {
     this._main = main;
     this._card = card;
     this._root = initTag('div', 'store-card__action-bar', parent);
-    const path = window.location.pathname;
+    const path = window.location.href;
     if(path == REF.STORE) { 
       this._initInfoBtn(ref); 
       this._initCartBtn(ref);
@@ -159,7 +159,7 @@ class StoreCard {
 }
 
 const renderStore = (tracks) => {
-  const path = window.location.pathname;
+  const path = window.location.href;
   const main = getRef('main');
   if(path == REF.STORE) {
     for(const [_, track] of tracks) {
