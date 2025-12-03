@@ -1,4 +1,11 @@
 
+const ENVIRONMENT = Object.freeze({
+  PRODUCTION: 'https://wesl2400-miun.github.io/lawandordermusic/',
+  DEV: 'http://127.0.0.1:5500/'
+});
+
+const BASE_URL = ENVIRONMENT.PRODUCTION;
+
 const getRef = (id) => {
   return document.getElementById(id);
 }
@@ -20,8 +27,8 @@ const refreshCart = () => {
 
 const REF = Object.freeze({
   CURRENT: 'CURRENT',
-  STORE: 'https://wesl2400-miun.github.io/lawandordermusic/store.html',
-  CART: 'https://wesl2400-miun.github.io/lawandordermusic/cart.html',
+  STORE: `${BASE_URL}store.html`,
+  CART: `${BASE_URL}cart.html`,
   BULLETPROOF: 'BULLETPROOF',
   SURVEILLANCE: 'SURVEILLANCE',
   TWO_STEPS_AHEAD: 'TWO_STEPS_AHEAD',
