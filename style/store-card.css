@@ -54,11 +54,18 @@
   background-color: var(--brand-secondary);
 }
 
+#info-btn:hover,
+#cart-btn:hover,
+#trash-btn:hover,
+#player-btn:hover {
+  background-color: var(--brand-primary);
+}
+
 #info-btn:active,
 #cart-btn:active,
 #trash-btn:active,
 #player-btn:active {
-  background-color: var(--brand-primary);
+  background-color: var(--brand-logo-background);
 }
 
 
