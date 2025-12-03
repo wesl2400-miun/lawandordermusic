@@ -1,5 +1,5 @@
 
-const ref = (id) => {
+const getRef = (id) => {
   return document.getElementById(id);
 }
 
@@ -11,7 +11,16 @@ const initTag = (type, css = null, parent = null, text = null) => {
   return tag;
 }
 
+const refreshCart = () => {
+  const cartBtn = getRef('cart-btn');
+  const value = sessionStorage.length;
+  cartBtn.textContent = `GO TO CART: ${value}`
+}
+
 const REF = Object.freeze({
+  CURRENT: 'CURRENT',
+  STORE: '/store.html',
+  CART: '/cart.html',
   BULLETPROOF: 'BULLETPROOF',
   SURVEILLANCE: 'SURVEILLANCE',
   TWO_STEPS_AHEAD: 'TWO_STEPS_AHEAD',
@@ -64,14 +73,18 @@ class Player {
 }
 
 class ActBarView {
-  constructor(parent, mp3, ref, forStore = true) {
+  constructor(main, card, parent, mp3, ref) {
+    this._main = main;
+    this._card = card;
     this._root = initTag('div', 'store-card__action-bar', parent);
-    if(forStore) { 
+    const path = window.location.pathname;
+    if(path == REF.STORE) { 
       this._initInfoBtn(ref); 
       this._initCartBtn(ref);
       new Player(this._root, mp3);
+    } else if(path == REF.CART) {
+      this._initTrashBtn(ref);
     }
-    else this._initTrashBtn(ref);
   }
 
   _initInfoBtn = (ref) => {
@@ -80,7 +93,7 @@ class ActBarView {
     infoBtn.setAttribute('aria-label', 'Information');
     const img = initTag('img', null, infoBtn);
     img.src = './assets/info.svg'; 
-    this._wireSave(infoBtn, ref);
+    this._wireCurrent(infoBtn, ref);
   }
 
   _initCartBtn = (ref) => {
@@ -89,7 +102,7 @@ class ActBarView {
     cartBtn.setAttribute('aria-label', 'Add to Cart');
     const img = initTag('img', null, cartBtn);
     img.src = './assets/cart.svg';
-    this._wireSave(cartBtn, ref);
+    this._wireAdd(cartBtn, ref);
   }
 
   _initTrashBtn = (ref) => {
@@ -100,26 +113,35 @@ class ActBarView {
     img.src = './assets/trash.svg';
     this._wireRemove(trashBtn, ref);
   }
-  
-  _wireSave = (tag, ref) => {
+
+  _wireCurrent = (tag, ref) => {
+    tag.addEventListener('click', () => {
+      sessionStorage.setItem(REF.CURRENT, ref);
+      window.location.href = './product.html';
+    });
+  }
+
+  _wireAdd = (tag, ref) => {
     tag.addEventListener('click', () => {
       sessionStorage.setItem(ref, ref);
+      refreshCart();
     });
   }
 
   _wireRemove = (tag, ref) => {
     tag.addEventListener('click', () => {
       sessionStorage.removeItem(ref);
+      this._main.removeChild(this._card);
     });
   }
 }
 
 class StoreCard {
-  constructor(parent, track) {
-    this._root = initTag('section', 'store-card', parent);
+  constructor(main, track) {
+    this._root = initTag('section', 'store-card', main);
     const { ref, src, alt, title, price, mp3 } = track;
     this._initImg(src, alt)
-    this._initDetails(ref, title, price, mp3);
+    this._initDetails(main, ref, title, price, mp3);
   }
 
   _initImg = (src, alt) => {
@@ -128,30 +150,71 @@ class StoreCard {
     img.alt = alt;
   }
 
-  _initDetails = (ref, title, price, mp3) => {
+  _initDetails = (main, ref, title, price, mp3) => {
     const details = new DetailsView(this._root, title, price);
     const { root } = details;
-    new ActBarView(root,mp3, ref);
+    new ActBarView(main, this._root, root, mp3, ref);
   }
 }
 
 const renderStore = (tracks) => {
-  const main = ref('main');
-  tracks.forEach(track => {
-    new StoreCard(main, track);
-  });
+  const path = window.location.pathname;
+  const main = getRef('main');
+  if(path == REF.STORE) {
+    for(const [_, track] of tracks) {
+      new StoreCard(main, track);
+      const cartBtn = getRef('cart-btn');
+      cartBtn.addEventListener('click', () => {
+        window.location.href = './cart.html';
+      });
+      refreshCart();
+    }
+  } else if(path == REF.CART) {
+    for(const key of Object.keys(sessionStorage)) {
+      const track = tracks.get(key);
+      if(track) new StoreCard(main, track);
+    }
+  }
 }
 
 window.addEventListener('load', () => {
-  const tracks = [
-    new Track(
+  const tracks = new Map([
+    [ REF.BULLETPROOF, new Track(
       REF.BULLETPROOF, 
       './assets/images/bulletproof-cover.png',
       'Law & Order - Bulletproof - Single Cover',
       'Law & Order - Bulletproof',
       './assets/audio/law_and_order_bulletproof.mp3'
-    )
-  ];
+    )],
+    [ REF.SURVEILLANCE, new Track(
+      REF.SURVEILLANCE, 
+      './assets/images/surveillance-cover.png',
+      'Law & Order - Surveillance - Single Cover',
+      'Law & Order - Surveillance',
+      './assets/audio/law_and_order_surveillance.mp3'
+    )],
+    [ REF.TWO_STEPS_AHEAD, new Track(
+      REF.TWO_STEPS_AHEAD, 
+      './assets/images/two-steps-ahead-cover.png',
+      'Law & Order - Two Steps Ahead - Single Cover',
+      'Law & Order - Two Steps Ahead',
+      './assets/audio/law_and_order_two_steps_ahead.mp3'
+    )],
+    [ REF.UNTOUCHABLE, new Track(
+      REF.UNTOUCHABLE, 
+      './assets/images/untouchable-cover.png',
+      'Law & Order - Untouchable - Single Cover',
+      'Law & Order - Untouchable',
+      './assets/audio/law_and_order_untouchable.mp3'
+    )],
+    [ REF.CONFRONTATION, new Track(
+      REF.CONFRONTATION, 
+      './assets/images/confrontation-cover.png',
+      'Law & Order - Confrontation - Single Cover',
+      'Law & Order - Confrontation',
+      './assets/audio/law_and_order_confrontation.mp3'
+    )]
+  ]);
   renderStore(tracks);
-  //sessionStorage.clear();
+ 
 });
