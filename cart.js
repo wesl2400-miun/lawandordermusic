@@ -45,8 +45,10 @@ class DetailsView {
 class Player {
   constructor(parent, mp3) {
     this._root = initTag('audio', null, parent);
-    this._root.src = mp3;
     this._root.controls = true;
+    const source = initTag('source', null, this._root);
+    source.src = mp3;
+    source.type = 'audio/mpeg';
   }
 }
 
