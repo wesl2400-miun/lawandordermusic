@@ -32,39 +32,50 @@ class Track {
 
 class DetailsView {
   constructor(parent, title, price) {
-    this._root = initTag('div', 'store-card__details', parent);
-    initTag('h2', null, this._root, title);
-    initTag('p', null, this._root, price);
-  }
-
-  add = (view) => {
-    this._root.appendChild(view.root);
+    this.root = initTag('div', 'store-card__details', parent);
+    initTag('h2', null, this.root, title);
+    initTag('p', null, this.root, price);
   }
 }
 
 class Player {
   constructor(parent, mp3) {
     this._root = initTag('audio', null, parent);
-    this._root.controls = true;
     const source = initTag('source', null, this._root);
     source.src = mp3;
     source.type = 'audio/mpeg';
+    this._root.load();
+    this._plays = false;
+    this._initControls(parent);
+  }
+
+  _initControls = (parent) => {
+    const btn = initTag('button', null, parent);
+    btn.id = 'player-btn';
+    const img = initTag('img', null, btn);
+    img.src = this._plays ? './assets/pause.svg' : './assets/play.svg';
+    btn.addEventListener('click', () => {
+      if(this._plays) this._root.pause();
+      else this._root.play();
+      this._plays = !this._plays;
+      img.src = this._plays ? './assets/pause.svg' : './assets/play.svg';
+    });
   }
 }
 
 class ActBarView {
-  constructor(ref, mp3, forStore = true) {
-    this.root = initTag('div', 'store-card__action-bar');
+  constructor(parent, mp3, ref, forStore = true) {
+    this._root = initTag('div', 'store-card__action-bar', parent);
     if(forStore) { 
       this._initInfoBtn(ref); 
       this._initCartBtn(ref);
-      new Player(this.root, mp3);
+      new Player(this._root, mp3);
     }
     else this._initTrashBtn(ref);
   }
 
   _initInfoBtn = (ref) => {
-    const infoBtn = initTag('button', null, this.root);
+    const infoBtn = initTag('button', null, this._root);
     infoBtn.id = 'info-btn';
     infoBtn.setAttribute('aria-label', 'Information');
     const img = initTag('img', null, infoBtn);
@@ -73,7 +84,7 @@ class ActBarView {
   }
 
   _initCartBtn = (ref) => {
-    const cartBtn = initTag('button', null, this.root);
+    const cartBtn = initTag('button', null, this._root);
     cartBtn.id = 'cart-btn';
     cartBtn.setAttribute('aria-label', 'Add to Cart');
     const img = initTag('img', null, cartBtn);
@@ -82,7 +93,7 @@ class ActBarView {
   }
 
   _initTrashBtn = (ref) => {
-    const trashBtn = initTag('button', null, this.root);
+    const trashBtn = initTag('button', null, this._root);
     trashBtn.id = 'trash-btn';
     trashBtn.setAttribute('aria-label', 'Remove from Cart');
     const img = initTag('img', null, trashBtn);
@@ -119,7 +130,8 @@ class StoreCard {
 
   _initDetails = (ref, title, price, mp3) => {
     const details = new DetailsView(this._root, title, price);
-    details.add(new ActBarView(ref, mp3));;
+    const { root } = details;
+    new ActBarView(root,mp3, ref);
   }
 }
 

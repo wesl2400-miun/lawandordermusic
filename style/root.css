@@ -20,6 +20,8 @@
   --nav-height-collapsed: 85vh;
   --page-title-height: 40px;
   --footer-height: 60px;
+  --action-icon-w: 30px;
+  --action-icon-h: 30px;
 }
 
 /** Stilisera body-taggen och gör den anpassbar **/
