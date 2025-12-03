@@ -20,8 +20,8 @@ const refreshCart = () => {
 
 const REF = Object.freeze({
   CURRENT: 'CURRENT',
-  STORE: '/lawandorder/store.html',
-  CART: '/lawandorder/cart.html',
+  STORE: '/lawandordermusic/store.html',
+  CART: '/lawandordermusic/cart.html',
   BULLETPROOF: 'BULLETPROOF',
   SURVEILLANCE: 'SURVEILLANCE',
   TWO_STEPS_AHEAD: 'TWO_STEPS_AHEAD',
