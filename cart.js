@@ -217,6 +217,5 @@ window.addEventListener('load', () => {
     )]
   ]);
   renderStore(tracks);
-  new StoreCard(tracks.get(REF.BULLETPROOF))
-  console.log('working');
+  console.log('im working')
 });
