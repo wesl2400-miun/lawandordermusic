@@ -137,7 +137,7 @@ window.addEventListener('load', () => {
       './assets/images/bulletproof-cover.png',
       'Law & Order - Bulletproof - Single Cover',
       'Law & Order - Bulletproof',
-      './assets/audio/law_and_order_bulletproof.mp3'
+      './assets/audio/bulletproof.mp3'
     )
   ];
   renderStore(tracks);
