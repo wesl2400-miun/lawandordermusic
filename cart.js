@@ -4,7 +4,17 @@ const ENVIRONMENT = Object.freeze({
   DEV: 'http://127.0.0.1:5500/'
 });
 
-const BASE_URL = ENVIRONMENT.PRODUCTION;
+const BASE_URL = ENVIRONMENT.DEV;
+
+const REF = Object.freeze({
+  STORE: `${BASE_URL}store.html`,
+  CART: `${BASE_URL}cart.html`,
+  BULLETPROOF: 'bulletproof',
+  SURVEILLANCE: 'surveillance',
+  TWO_STEPS_AHEAD: 'two-steps-ahead',
+  UNTOUCHABLE: 'untouchable',
+  CONFRONTATION: 'confrontation'
+});
 
 const getRef = (id) => {
   return document.getElementById(id);
@@ -18,24 +28,6 @@ const initTag = (type, css = null, parent = null, text = null) => {
   return tag;
 }
 
-const refreshCart = () => {
-  const cartBtn = getRef('cart-btn');
-  let value = sessionStorage.length;
-  if(sessionStorage.getItem(REF.CURRENT)) value--;
-  cartBtn.textContent = `GO TO CART: ${value}`
-}
-
-const REF = Object.freeze({
-  CURRENT: 'CURRENT',
-  STORE: `${BASE_URL}store.html`,
-  CART: `${BASE_URL}cart.html`,
-  BULLETPROOF: 'BULLETPROOF',
-  SURVEILLANCE: 'SURVEILLANCE',
-  TWO_STEPS_AHEAD: 'TWO_STEPS_AHEAD',
-  UNTOUCHABLE: 'UNTOUCHABLE',
-  CONFRONTATION: 'CONFRONTATION'
-});
-
 class Track {
   constructor(ref, src, alt, title, mp3) {
     this.ref = ref;
@@ -47,9 +39,33 @@ class Track {
   }
 }
 
+class DialogView {
+  constructor() {
+    this._modal = getRef('modal');
+    this._dialog = getRef('dialog');
+    this._okBtn = getRef('ok-btn');
+    this._wire();
+  }
+
+  _wire = () => {
+    this._okBtn.addEventListener('click', () => {
+      this.updateDialog(false);
+    });
+  }
+
+  updateDialog = (isVisible = true) => {
+    const visibility = isVisible ? 'flex' : 'none';
+    this._modal = getRef('modal');
+    this._modal.style.display = visibility;
+    this._dialog = getRef('dialog');
+    this._dialog.style.display = visibility;
+  }
+}
+
 class DetailsView {
-  constructor(parent, title, price) {
+  constructor(parent, track) {
     this.root = initTag('div', 'store-card__details', parent);
+    const { title, price } = track;
     initTag('h2', null, this.root, title);
     initTag('p', null, this.root, price);
   }
@@ -81,18 +97,21 @@ class Player {
 }
 
 class ActBarView {
-  constructor(main, card, parent, mp3, ref) {
-    this._main = main;
-    this._card = card;
+  constructor(parent, track) {
     this._root = initTag('div', 'store-card__action-bar', parent);
-    const path = window.location.href;
-    if(path == REF.STORE) { 
-      this._initInfoBtn(ref); 
-      this._initCartBtn(ref);
-      new Player(this._root, mp3);
-    } else if(path == REF.CART) {
-      this._initTrashBtn(ref);
-    }
+    this._track = track;
+  }
+
+  storeConfig = (dialogView) => {
+    const { ref, mp3 } = this._track;
+    this._initInfoBtn(ref); 
+    this._initCartBtn(ref, dialogView);
+    new Player(this._root, mp3);
+  }
+  
+  cartConfig = (main, card) => {
+    const { ref } = this._track;
+    this._initTrashBtn(ref, main, card);
   }
 
   _initInfoBtn = (ref) => {
@@ -104,86 +123,110 @@ class ActBarView {
     this._wireCurrent(infoBtn, ref);
   }
 
-  _initCartBtn = (ref) => {
+  _wireCurrent = (tag, ref) => {
+    tag.addEventListener('click', () => {
+      sessionStorage.setItem(REF.CURRENT, ref);
+      window.location.href = `product.html?track=${encodeURIComponent(ref)}`;
+    });
+  }
+
+  _initCartBtn = (ref, dialogView) => {
     const cartBtn = initTag('button', null, this._root);
     cartBtn.id = 'cart-btn';
     cartBtn.setAttribute('aria-label', 'Add to Cart');
     const img = initTag('img', null, cartBtn);
     img.src = './assets/cart.svg';
-    this._wireAdd(cartBtn, ref);
+    this._wireAdd(cartBtn, ref, dialogView);
   }
 
-  _initTrashBtn = (ref) => {
+  _wireAdd = (tag, ref, dialogView) => {
+    tag.addEventListener('click', () => {
+      const item = sessionStorage.getItem(ref);
+      if(item) dialogView.updateDialog();
+      else sessionStorage.setItem(ref, ref);
+    });
+  }
+
+  _initTrashBtn = (ref, main, card) => {
     const trashBtn = initTag('button', null, this._root);
     trashBtn.id = 'trash-btn';
     trashBtn.setAttribute('aria-label', 'Remove from Cart');
     const img = initTag('img', null, trashBtn);
     img.src = './assets/trash.svg';
-    this._wireRemove(trashBtn, ref);
+    this._wireRemove(trashBtn, ref, main, card);
   }
 
-  _wireCurrent = (tag, ref) => {
-    tag.addEventListener('click', () => {
-      sessionStorage.setItem(REF.CURRENT, ref);
-      window.location.href = './product.html';
-    });
-  }
-
-  _wireAdd = (tag, ref) => {
-    tag.addEventListener('click', () => {
-      sessionStorage.setItem(ref, ref);
-      refreshCart();
-    });
-  }
-
-  _wireRemove = (tag, ref) => {
+  _wireRemove = (tag, ref, main, card) => {
     tag.addEventListener('click', () => {
       sessionStorage.removeItem(ref);
-      this._main.removeChild(this._card);
+      main.removeChild(card);
     });
   }
 }
 
-class StoreCard {
-  constructor(main, track) {
+class Card {
+  constructor(track) {
     this._root = initTag('section', 'store-card', main);
-    const { ref, src, alt, title, price, mp3 } = track;
-    this._initImg(src, alt)
-    this._initDetails(main, ref, title, price, mp3);
+    this._track = track;
+    this._initImg();
   }
 
-  _initImg = (src, alt) => {
+  _initImg = () => {
     const img = initTag('img', null, this._root);
+    const { src, alt } = this._track;
     img.src = src;
     img.alt = alt;
   }
 
-  _initDetails = (main, ref, title, price, mp3) => {
-    const details = new DetailsView(this._root, title, price);
-    const { root } = details;
-    new ActBarView(main, this._root, root, mp3, ref);
+  _details = () => {
+    const details = new DetailsView(
+      this._root, this._track);
+    return details.root;
+  }
+
+  storeConfig = (dialogView) => {
+    const actBar = new ActBarView(
+      this._details(), this._track);
+    actBar.storeConfig(dialogView);
+  }
+
+  cartConfig = (main) => {
+    const actBar = new ActBarView(
+      this._details(), this._track);
+    actBar.cartConfig(main, this._root);
   }
 }
 
-const renderStore = (tracks) => {
-  const path = window.location.href;
-  const main = getRef('main');
-  if(path == REF.STORE) {
-    for(const [_, track] of tracks) {
-      new StoreCard(main, track);
-      const cartBtn = getRef('cart-btn');
-      cartBtn.addEventListener('click', () => {
-        window.location.href = './cart.html';
-      });
-      refreshCart();
-    }
-  } else if(path == REF.CART) {
-    for(const key of Object.keys(sessionStorage)) {
-      const track = tracks.get(key);
-      if(track) new StoreCard(main, track);
+class StoreView {
+  constructor(tracks) {
+    this._tracks = tracks;
+  }
+
+  render = (dialogView, cartCounter) => {
+    for(const [_, track] of this._tracks) {
+      const card = new Card(track, cartCounter);
+      card.storeConfig(dialogView);
     }
   }
 }
+
+class CartView {
+  constructor(tracks) {
+    this._tracks = tracks;
+    this._buyBtn = getRef('buy-btn');
+  }
+
+  render = (main, cartCounter) => {
+    for(const key of Object.keys(sessionStorage)) {
+      const track = this._tracks.get(key);
+      if(track) {
+        const card = new Card(track, cartCounter);
+        card.cartConfig(main);
+      }
+    }
+  }
+}
+
 
 window.addEventListener('load', () => {
   const tracks = new Map([
@@ -223,5 +266,16 @@ window.addEventListener('load', () => {
       './assets/audio/law_and_order_confrontation.mp3'
     )]
   ]);
-  renderStore(tracks);
+
+  const main = getRef('main');
+  const dialogView = new DialogView();
+
+  const path = window.location.href;
+  if(path === REF.STORE) {
+    const storeView = new StoreView(tracks);
+    storeView.render(dialogView);
+  } else if(path === REF.CART) {
+    const cartView = new CartView(tracks);
+    cartView.render(main);
+  }
 });

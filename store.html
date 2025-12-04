@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./style/main.css">
     <link rel="stylesheet" href="./style/footer.css">
     <link rel="stylesheet" href="./style/store-card.css">
+    <link rel="stylesheet" href="./style/dialog.css">
+    <link rel="stylesheet" href="./style/button.css">
 
     <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte tolkas -->
     <link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png" sizes="96x96">
@@ -62,14 +64,21 @@
     <main id="main">
       <h1>Store</h1>
       <button id="cart-btn" class="button">GO TO CART: 0</button>
-
     </main>
+
+    <div role="presentation" id="modal"></div>
+    <div role="dialog" id="dialog" class="dialog" aria-labelledby="dialog-title">
+      <h3>Track Already Added</h3>
+      <p>This track has already been added to your cart.</p>
+      <img alt="Action Succeeced" src="./assets/fail.svg">
+      <button id="ok-btn" class="button">OK</button>
+    </div>
 
     <footer class="footer">
       <a href="./info.html">About Website (Swedish)</a>
     </footer>
     <!-- Kör logiken för navigeringsmenyn -->
-    <script src="./menu.js" defer></script>
-    <script src="./cart.js" defer></script>
+    <script src="./menu.js" defer fetchpriority="high"></script>
+    <script src="./cart.js" defer fetchpriority="high"></script>
   </body>
 </html>

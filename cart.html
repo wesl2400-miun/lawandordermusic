@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="./style/main.css">
     <link rel="stylesheet" href="./style/footer.css">
     <link rel="stylesheet" href="./style/store-card.css">
+    <link rel="stylesheet" href="./style/dialog.css">
+    <link rel="stylesheet" href="./style/button.css">
 
     <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte tolkas -->
     <link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png" sizes="96x96">
@@ -61,13 +63,29 @@
     <!-- Huvudinnehållet -->
     <main id="main">
       <h1>Cart</h1>
+      <button id="buy-btn" class="button">PURCHASE</button>
     </main>
+
+    <div id="modal">
+      <div role="dialog" id="dialog" class="dialog" aria-labelledby="dialog-title">
+        <h3 id="dialog-title"></h3>
+        <p id="dialog-desc"></p>
+      </div>
+    </div>
+
+    <div role="presentation" id="modal"></div>
+    <div role="dialog" id="dialog" class="dialog" aria-labelledby="dialog-title">
+      <h3>Transaction Succeeded</h3>
+      <p>Thank you for your purchase!</p>
+      <img alt="Action Succeeced" src="./assets/fail.svg">
+      <button id="ok-btn" class="button">OK</button>
+    </div>
 
     <footer class="footer">
       <a href="./info.html">About Website (Swedish)</a>
     </footer>
     <!-- Kör logiken för navigeringsmenyn -->
-    <script src="./menu.js"></script>
-    <script src="./cart.js"></script>
+    <script src="./menu.js" defer fetchpriority="high"></script>
+    <script src="./cart.js" defer fetchpriority="high"></script>
   </body>
 </html>
