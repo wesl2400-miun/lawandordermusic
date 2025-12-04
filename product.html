@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./style/header.css">
     <link rel="stylesheet" href="./style/nav.css">
     <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/basic-card.css">
+    <link rel="stylesheet" href="./style/video-card.css">
     <link rel="stylesheet" href="./style/footer.css">
     <link rel="stylesheet" href="./style/button.css">
 
@@ -51,7 +53,6 @@
         <!-- Navigeringslänkar - visas när meny-knappen pressas -->
         <ul id="routes">
           <li><a href="./index.html">Home</a></li>
-          <li><a href="./about.html">About</a></li>
           <li><a href="./videos.html">Videos</a></li>
           <li><a href="./store.html">Store</a></li>
           <li><a href="./cart.html">Cart</a></li>
@@ -60,14 +61,15 @@
     </header>
     <!-- Huvudinnehållet -->
     <main id="main">
-      <h1>Product Info</h1>
+      <h1 id="page-title">Product Info</h1>
+      <a href="./store.html" class="button-anchor">BACK TO CART</a>
     </main>
 
     <footer class="footer">
-      <a href="./info.html">About Website (Swedish)</a>
+      <a href="./about.html">About Website (Swedish)</a>
     </footer>
 
-    <script defer fetchpriority="high" src="./menu.js"></script>
-    <script defer fetchpriority="high" src="./product.js"></script>
+    <script defer fetchpriority="high" src="./scripts/menu.js"></script>
+    <script defer fetchpriority="high" src="./scripts/cart.js"></script>
   </body>
 </html>

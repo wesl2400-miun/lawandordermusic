@@ -11,7 +11,6 @@
 }
 
 .footer a, a:link, a:visited, a:active {
-  display: block;
   text-decoration: underline;
   text-align: center;
   color: var(--brand-secondary-variant);

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./style/header.css">
     <link rel="stylesheet" href="./style/nav.css">
     <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/basic-card.css">
     <link rel="stylesheet" href="./style/footer.css">
     <link rel="stylesheet" href="./style/button.css">
 
@@ -51,7 +52,6 @@
         <!-- Navigeringslänkar - visas när meny-knappen pressas -->
         <ul id="routes">
           <li><a href="./index.html">Home</a></li>
-          <li><a href="./about.html">About</a></li>
           <li><a href="./videos.html">Videos</a></li>
           <li><a href="./store.html">Store</a></li>
           <li><a href="./cart.html">Cart</a></li>
@@ -61,12 +61,18 @@
     <!-- Huvudinnehållet -->
     <main id="main">
       <h1>Privacy Policy</h1>
+      <a href="./cart.html" class="button-anchor">BACK TO CART</a>
+      <section class="basic-card">
+        <h2>Privacy Policy</h2>
+        <p>This section contains an example privacy policy.</p>
+      </section>
     </main>
 
     <footer class="footer">
-      <a href="./info.html">About Website (Swedish)</a>
+      <a href="./about.html">About Website (Swedish)</a>
     </footer>
+    
     <!-- Kör logiken för navigeringsmenyn -->
-    <script defer fetchpriority="high" src="./menu.js"></script>
+    <script defer fetchpriority="high" src="./scripts/menu.js"></script>
   </body>
 </html>

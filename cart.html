@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./style/nav.css">
     <link rel="stylesheet" href="./style/main.css">
     <link rel="stylesheet" href="./style/footer.css">
+    <link rel="stylesheet" href="./style/basic-card.css">
     <link rel="stylesheet" href="./style/store-card.css">
     <link rel="stylesheet" href="./style/dialog.css">
     <link rel="stylesheet" href="./style/button.css">
@@ -53,7 +54,6 @@
         <!-- Navigeringslänkar - visas när meny-knappen pressas -->
         <ul id="routes">
           <li><a href="./index.html">Home</a></li>
-          <li><a href="./about.html">About</a></li>
           <li><a href="./videos.html">Videos</a></li>
           <li><a href="./store.html">Store</a></li>
           <li><a class="selected" href="./cart.html">Cart</a></li>
@@ -64,28 +64,27 @@
     <main id="main">
       <h1>Cart</h1>
       <button id="buy-btn" class="button">PURCHASE</button>
+      <section class="basic-card">
+        <h2>Your Shopping Cart</h2>
+        <p>By clicking on 'Purchase' button, you agree to our Integrity Policy.</p>
+        <a class="anchor" href="./policy.html">Read our Privacy Policy</a>
+      </section>
     </main>
-
-    <div id="modal">
-      <div role="dialog" id="dialog" class="dialog" aria-labelledby="dialog-title">
-        <h3 id="dialog-title"></h3>
-        <p id="dialog-desc"></p>
-      </div>
-    </div>
 
     <div role="presentation" id="modal"></div>
     <div role="dialog" id="dialog" class="dialog" aria-labelledby="dialog-title">
       <h3>Transaction Succeeded</h3>
       <p>Thank you for your purchase!</p>
-      <img alt="Action Succeeced" src="./assets/fail.svg">
+      <img alt="Action Succeeced" src="./assets/success.svg">
       <button id="ok-btn" class="button">OK</button>
     </div>
 
     <footer class="footer">
-      <a href="./info.html">About Website (Swedish)</a>
+      <a href="./about.html">About Website (Swedish)</a>
     </footer>
+
     <!-- Kör logiken för navigeringsmenyn -->
-    <script src="./menu.js" defer fetchpriority="high"></script>
-    <script src="./cart.js" defer fetchpriority="high"></script>
+    <script defer fetchpriority="high" src="./scripts/menu.js"></script>
+    <script defer fetchpriority="high" src="./scripts/cart.js"></script>
   </body>
 </html>

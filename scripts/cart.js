@@ -4,11 +4,12 @@ const ENVIRONMENT = Object.freeze({
   DEV: 'http://127.0.0.1:5500/'
 });
 
-const BASE_URL = ENVIRONMENT.DEV;
+const BASE_URL = ENVIRONMENT.PRODUCTION;
 
 const REF = Object.freeze({
   STORE: `${BASE_URL}store.html`,
   CART: `${BASE_URL}cart.html`,
+  PRODUCT: `${BASE_URL}product.html`,
   BULLETPROOF: 'bulletproof',
   SURVEILLANCE: 'surveillance',
   TWO_STEPS_AHEAD: 'two-steps-ahead',
@@ -29,13 +30,16 @@ const initTag = (type, css = null, parent = null, text = null) => {
 }
 
 class Track {
-  constructor(ref, src, alt, title, mp3) {
+  constructor(ref, src, alt, title, mp3, desc, mpeg, poster) {
     this.ref = ref;
     this.src = src;
     this.alt = alt;
     this.title = title;
     this.price = '$2';
     this.mp3 = mp3;
+    this.desc = desc;
+    this.mpeg = mpeg;
+    this.poster = poster;
   }
 }
 
@@ -44,22 +48,23 @@ class DialogView {
     this._modal = getRef('modal');
     this._dialog = getRef('dialog');
     this._okBtn = getRef('ok-btn');
+    this._updateDialog();
     this._wire();
   }
-
-  _wire = () => {
-    this._okBtn.addEventListener('click', () => {
-      this.updateDialog(false);
-    });
-  }
-
-  updateDialog = (isVisible = true) => {
+  _updateDialog = (isVisible = true) => {
     const visibility = isVisible ? 'flex' : 'none';
     this._modal = getRef('modal');
     this._modal.style.display = visibility;
     this._dialog = getRef('dialog');
     this._dialog.style.display = visibility;
   }
+
+   _wire = () => {
+    this._okBtn.addEventListener('click', () => {
+      this._updateDialog(false);
+    });
+  }
+
 }
 
 class DetailsView {
@@ -102,16 +107,16 @@ class ActBarView {
     this._track = track;
   }
 
-  storeConfig = (dialogView) => {
+  storeConfig = () => {
     const { ref, mp3 } = this._track;
     this._initInfoBtn(ref); 
-    this._initCartBtn(ref, dialogView);
+    this._initCartBtn(ref);
     new Player(this._root, mp3);
   }
   
-  cartConfig = (main, card) => {
+  cartConfig = (cardHolder, card) => {
     const { ref } = this._track;
-    this._initTrashBtn(ref, main, card);
+    this._initTrashBtn(ref, cardHolder, card);
   }
 
   _initInfoBtn = (ref) => {
@@ -125,48 +130,48 @@ class ActBarView {
 
   _wireCurrent = (tag, ref) => {
     tag.addEventListener('click', () => {
-      sessionStorage.setItem(REF.CURRENT, ref);
-      window.location.href = `product.html?track=${encodeURIComponent(ref)}`;
+      window.location.href = `${REF.PRODUCT}?track=${encodeURIComponent(ref)}`;
     });
   }
 
-  _initCartBtn = (ref, dialogView) => {
+  _initCartBtn = (ref) => {
     const cartBtn = initTag('button', null, this._root);
     cartBtn.id = 'cart-btn';
     cartBtn.setAttribute('aria-label', 'Add to Cart');
     const img = initTag('img', null, cartBtn);
     img.src = './assets/cart.svg';
-    this._wireAdd(cartBtn, ref, dialogView);
+    this._wireAdd(cartBtn, ref);
   }
 
-  _wireAdd = (tag, ref, dialogView) => {
+  _wireAdd = (tag, ref,) => {
     tag.addEventListener('click', () => {
       const item = sessionStorage.getItem(ref);
-      if(item) dialogView.updateDialog();
+      if(item) new DialogView();
       else sessionStorage.setItem(ref, ref);
     });
   }
 
-  _initTrashBtn = (ref, main, card) => {
+  _initTrashBtn = (ref, cardHolder, card) => {
     const trashBtn = initTag('button', null, this._root);
     trashBtn.id = 'trash-btn';
     trashBtn.setAttribute('aria-label', 'Remove from Cart');
     const img = initTag('img', null, trashBtn);
     img.src = './assets/trash.svg';
-    this._wireRemove(trashBtn, ref, main, card);
+    this._wireRemove(trashBtn, ref, cardHolder, card);
   }
 
-  _wireRemove = (tag, ref, main, card) => {
+  _wireRemove = (tag, ref, cardHolder, card) => {
     tag.addEventListener('click', () => {
       sessionStorage.removeItem(ref);
-      main.removeChild(card);
+      cardHolder.removeChild(card);
     });
   }
 }
 
 class Card {
-  constructor(track) {
-    this._root = initTag('section', 'store-card', main);
+  constructor(track, cardHolder) {
+    this._root = initTag('li', 'store-card', cardHolder);
+    this._cardHolder = cardHolder;
     this._track = track;
     this._initImg();
   }
@@ -184,49 +189,112 @@ class Card {
     return details.root;
   }
 
-  storeConfig = (dialogView) => {
+  storeConfig = () => {
     const actBar = new ActBarView(
       this._details(), this._track);
-    actBar.storeConfig(dialogView);
+    actBar.storeConfig();
   }
 
-  cartConfig = (main) => {
+  cartConfig = () => {
     const actBar = new ActBarView(
       this._details(), this._track);
-    actBar.cartConfig(main, this._root);
+    actBar.cartConfig(this._cardHolder, this._root);
   }
 }
 
 class StoreView {
-  constructor(tracks) {
-    this._tracks = tracks;
+  constructor(tracks, main) {
+    this._cardHolder = initTag('ul', 'card-holder', main);
+    this._render(tracks);
+    this._wireCartBtn();
   }
 
-  render = (dialogView, cartCounter) => {
-    for(const [_, track] of this._tracks) {
-      const card = new Card(track, cartCounter);
-      card.storeConfig(dialogView);
+  _render = (tracks) => {
+    for(const [_, track] of tracks) {
+      const card = new Card(track, this._cardHolder);
+      card.storeConfig();
     }
+  }
+
+    _wireCartBtn = () => {
+    const cartBtn = getRef('cart-btn');
+    const cartCounter = sessionStorage.length;
+    cartBtn.textContent = `GO TO CART: ${cartCounter}`;
+    cartBtn.addEventListener('click', () => {
+      window.location.href = REF.CART;
+    });
   }
 }
 
 class CartView {
-  constructor(tracks) {
-    this._tracks = tracks;
-    this._buyBtn = getRef('buy-btn');
+  constructor(tracks, main) {
+    this._cardHolder = initTag('ul', 'card-holder', main);
+    this._render(tracks);
+    this._wireBuyBtn();
   }
 
-  render = (main, cartCounter) => {
+  _wireBuyBtn = () => {
+    const buyBtn = getRef('buy-btn');
+    buyBtn.addEventListener('click', () => {
+      new DialogView();
+      this._cardHolder.innerHTML = '';
+      sessionStorage.clear();
+    });
+  }
+
+  _render = (tracks) => {
     for(const key of Object.keys(sessionStorage)) {
-      const track = this._tracks.get(key);
+      const track = tracks.get(key);
       if(track) {
-        const card = new Card(track, cartCounter);
-        card.cartConfig(main);
+        const card = new Card(track, this._cardHolder);
+        card.cartConfig();
       }
     }
   }
 }
 
+class ProductView {
+  constructor(parent, ref, tracks) {
+    this._parent = parent;
+    this._root = initTag('section', 'basic-card', this._parent);
+    this._track = tracks.get(ref);
+    this._initImg();
+    this._initDetails();
+    this._initVideo();
+  }
+
+  _initVideo = () => {
+    const { title, mpeg, poster } = this._track;
+    if(!mpeg) return;
+    const card = initTag('section', 'video-card', this._parent);
+    const label = initTag('h2', null, card);
+    label.textContent = `${title} - Official Video`
+    const video = initTag('video', 'clip', card);
+    video.preload = 'none';
+    video.controls = true;
+    video.poster = poster;
+    const source = initTag('source', null, video);
+    source.type = 'video/mp4';
+    source.src = mpeg;
+  }
+
+  _initImg = () => {
+    const { src, alt } = this._track;
+    const img = initTag('img', null, this._root);
+    img.src = src;
+    img.alt = alt;
+  }
+
+  _initDetails = () => {
+    const { title, desc } = this._track;
+    const pageTitle = getRef('page-title');
+    pageTitle.textContent = title;
+    const cardTitle = initTag('h2', null, this._root);
+    cardTitle.textContent = title;
+    const description = initTag('p', 'basic-card', this._root);
+    description.textContent = desc;
+  }
+}
 
 window.addEventListener('load', () => {
   const tracks = new Map([
@@ -235,47 +303,59 @@ window.addEventListener('load', () => {
       './assets/images/bulletproof-cover.png',
       'Law & Order - Bulletproof - Single Cover',
       'Law & Order - Bulletproof',
-      './assets/audio/law_and_order_bulletproof.mp3'
+      './assets/audio/law_and_order_bulletproof.mp3',
+      `A story about someone who easily brushes off a bulletrain of attacks like it's nothing.`,
+      './assets/videos/law_and_order_bulletproof.mp4',
+      './assets/images/bulletproof-poster.png'
     )],
     [ REF.SURVEILLANCE, new Track(
       REF.SURVEILLANCE, 
       './assets/images/surveillance-cover.png',
       'Law & Order - Surveillance - Single Cover',
       'Law & Order - Surveillance',
-      './assets/audio/law_and_order_surveillance.mp3'
+      './assets/audio/law_and_order_surveillance.mp3',
+      `A story about someone who is constantly watched by hostile people. `,
+      './assets/videos/law_and_order_surveillance.mp4',
+      './assets/images/surveillance-poster.png'
     )],
     [ REF.TWO_STEPS_AHEAD, new Track(
       REF.TWO_STEPS_AHEAD, 
       './assets/images/two-steps-ahead-cover.png',
       'Law & Order - Two Steps Ahead - Single Cover',
       'Law & Order - Two Steps Ahead',
-      './assets/audio/law_and_order_two_steps_ahead.mp3'
+      './assets/audio/law_and_order_two_steps_ahead.mp3',
+      `A story about a person who can foresee their enemies' next moves and defend themself beforehand.`,
+      './assets/videos/law_and_order_two_steps_ahead.mp4',
+      './assets/images/two-steps-ahead-ov-poster.png'
     )],
     [ REF.UNTOUCHABLE, new Track(
       REF.UNTOUCHABLE, 
       './assets/images/untouchable-cover.png',
       'Law & Order - Untouchable - Single Cover',
       'Law & Order - Untouchable',
-      './assets/audio/law_and_order_untouchable.mp3'
+      './assets/audio/law_and_order_untouchable.mp3',
+      `A story about a person who is impossible to take down.`
     )],
     [ REF.CONFRONTATION, new Track(
       REF.CONFRONTATION, 
       './assets/images/confrontation-cover.png',
       'Law & Order - Confrontation - Single Cover',
       'Law & Order - Confrontation',
-      './assets/audio/law_and_order_confrontation.mp3'
+      './assets/audio/law_and_order_confrontation.mp3',
+      `A story about how open confrontation is sometimes the only path to true peace.`
     )]
   ]);
 
   const main = getRef('main');
-  const dialogView = new DialogView();
 
   const path = window.location.href;
   if(path === REF.STORE) {
-    const storeView = new StoreView(tracks);
-    storeView.render(dialogView);
+    new StoreView(tracks, main);
   } else if(path === REF.CART) {
-    const cartView = new CartView(tracks);
-    cartView.render(main);
+    new CartView(tracks, main);
+  } else if (path.includes(REF.PRODUCT)) {
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get('track') || '';
+    if(ref) new ProductView(main, ref, tracks);
   }
 });

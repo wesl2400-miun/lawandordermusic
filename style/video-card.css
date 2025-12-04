@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 95%;
   box-sizing: border-box;
   padding: 1rem;
@@ -10,7 +11,7 @@
   background-color: var(--brand-background);
   color: var(--brand-on-background);
   border-radius: 5px;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .video-card .clip {

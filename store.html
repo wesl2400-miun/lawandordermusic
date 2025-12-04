@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./style/nav.css">
     <link rel="stylesheet" href="./style/main.css">
     <link rel="stylesheet" href="./style/footer.css">
+    <link rel="stylesheet" href="./style/basic-card.css">
     <link rel="stylesheet" href="./style/store-card.css">
     <link rel="stylesheet" href="./style/dialog.css">
     <link rel="stylesheet" href="./style/button.css">
@@ -53,7 +54,6 @@
         <!-- Navigeringslänkar - visas när meny-knappen pressas -->
         <ul id="routes">
           <li><a href="./index.html">Home</a></li>
-          <li><a href="./about.html">About</a></li>
           <li><a href="./videos.html">Videos</a></li>
           <li><a class="selected" href="./store.html">Store</a></li>
           <li><a href="./cart.html">Cart</a></li>
@@ -64,21 +64,26 @@
     <main id="main">
       <h1>Store</h1>
       <button id="cart-btn" class="button">GO TO CART: 0</button>
+      <section class="basic-card">
+        <h2>Buy Drum & Bass Tracks</h2>
+        <p>Listen to our tracks and add to cart the one you would like to purchase. Click on the info icon for more information on a particular track.</p>
+      </section>
     </main>
 
     <div role="presentation" id="modal"></div>
     <div role="dialog" id="dialog" class="dialog" aria-labelledby="dialog-title">
       <h3>Track Already Added</h3>
       <p>This track has already been added to your cart.</p>
-      <img alt="Action Succeeced" src="./assets/fail.svg">
+      <img alt="Action Failed" src="./assets/fail.svg">
       <button id="ok-btn" class="button">OK</button>
     </div>
 
     <footer class="footer">
-      <a href="./info.html">About Website (Swedish)</a>
+      <a href="./about.html">About Website (Swedish)</a>
     </footer>
+
     <!-- Kör logiken för navigeringsmenyn -->
-    <script src="./menu.js" defer fetchpriority="high"></script>
-    <script src="./cart.js" defer fetchpriority="high"></script>
+    <script defer fetchpriority="high" src="./scripts/menu.js"></script>
+    <script defer fetchpriority="high" src="./scripts/cart.js"></script>
   </body>
 </html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Experimental Drum & Bass | Law & Order Official Site</title>
-  
+    <title>Om Webbplatsen | Law & Order officiell webbplats </title>
+
     <!-- Hämta CSS stilar -->
     <link rel="stylesheet" href="./style/root.css">
     <link rel="stylesheet" href="./style/logo.css">
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./style/header.css">
     <link rel="stylesheet" href="./style/nav.css">
     <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/basic-card.css">
     <link rel="stylesheet" href="./style/footer.css">
 
     <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte tolkas -->
@@ -28,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-
+    
   </head>
   <body>
     <!-- Sidhuvud -->
@@ -50,7 +51,6 @@
         <!-- Navigeringslänkar - visas när meny-knappen pressas -->
         <ul id="routes">
           <li><a href="./index.html">Home</a></li>
-          <li><a class="selected" href="./about.html">About</a></li>
           <li><a href="./videos.html">Videos</a></li>
           <li><a href="./store.html">Store</a></li>
           <li><a href="./cart.html">Cart</a></li>
@@ -59,13 +59,22 @@
     </header>
     <!-- Huvudinnehållet -->
     <main id="main">
-      <h1>About</h1>
+      <h1>Om webbplatsen</h1>
+      <section class="basic-card">
+        <h2>Om mig</h2>
+        <p>Allt material du hittar på denna webbplats är skapad av mig: inklusive låtar, filmer, ikoner, illustrationer med mera. Detta var det svåraste med uppgiften och kanske borde jag ha valt ett enklare tema än musikproduktion men jag tyckte att idén var väldigt rolig och därför valde jag att programmera en sådan webbutik.</p>
+      </section>
+      <section class="basic-card">
+        <h2>Kontakt</h2>
+        <p>wesl2400@student.miun.se</p>
+      </section>
     </main>
 
     <footer class="footer">
-      <a href="./info.html">About Website (Swedish)</a>
+      <a href="./about.html">About Website (Swedish)</a>
     </footer>
+
     <!-- Kör logiken för navigeringsmenyn -->
-    <script defer fetchpriority="high" src="./menu.js"></script>
+    <script defer fetchpriority="high" src="./scripts/menu.js"></script>
   </body>
 </html>

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./style/header.css">
     <link rel="stylesheet" href="./style/nav.css">
     <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/video-card.css">
     <link rel="stylesheet" href="./style/footer.css">
 
     <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte tolkas -->
@@ -60,12 +61,37 @@
     <!-- Huvudinnehållet -->
     <main id="main">
       <h1>Videos</h1>
+      <section class="video-card">
+        <h2>Watch Bulletproof - Official Video</h2>
+        <video class="clip" controls preload="none" poster="./assets/images/bulletproof-poster.png">
+          <source src="./assets/videos/law_and_order_bulletproof.mp4" type="video/mp4">
+        </video>
+      </section>
+      <section class="video-card">
+        <h2>Watch Surveillance - Official Video</h2>
+        <video class="clip" controls preload="none" poster="./assets/images/surveillance-poster.png">
+          <source src="./assets/videos/law_and_order_surveillance.mp4" type="video/mp4">
+        </video>
+      </section>
+        <section class="video-card">
+        <h2>Watch Two Steps Ahead - Official Video</h2>
+        <video class="clip" controls preload="none" poster="./assets/images/two-steps-ahead-ov-poster.png">
+          <source src="./assets/videos/law_and_order_two_steps_ahead.mp4" type="video/mp4">
+        </video>
+      </section>
+      <section class="video-card">
+        <h2>Watch Two Steps Ahead - Making of the Bass Sound Video</h2>
+        <video class="clip" controls preload="none" poster="./assets/images/two-steps-ahead-mo-poster.png">
+          <source src="./assets/videos/two_steps_ahead_making_of_the_bass.mp4" type="video/mp4">
+        </video>
+      </section>
     </main>
 
     <footer class="footer">
-      <a href="./info.html">About Website (Swedish)</a>
+      <a href="./about.html">About Website (Swedish)</a>
     </footer>
+
     <!-- Kör logiken för navigeringsmenyn -->
-    <script defer fetchpriority="high" src="./menu.js"></script>
+    <script defer fetchpriority="high" src="./scripts/menu.js"></script>
   </body>
 </html>
