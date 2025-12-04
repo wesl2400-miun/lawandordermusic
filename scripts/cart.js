@@ -146,8 +146,13 @@ class ActBarView {
   _wireAdd = (tag, ref,) => {
     tag.addEventListener('click', () => {
       const item = sessionStorage.getItem(ref);
-      if(item) new DialogView();
-      else sessionStorage.setItem(ref, ref);
+      if(item) {
+        new DialogView();
+      } else {
+        sessionStorage.setItem(ref, ref);
+        const text = `GO TO CART: ${sessionStorage.length}`;
+        getRef('cart-btn').textContent = text;
+      }
     });
   }
 
