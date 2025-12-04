@@ -276,6 +276,7 @@ class ProductView {
     label.textContent = `${title} - Official Video`
     const video = initTag('video', 'clip', card);
     video.preload = 'none';
+    video.fetchpriority = 'high';
     video.controls = true;
     video.poster = poster;
     const source = initTag('source', null, video);
