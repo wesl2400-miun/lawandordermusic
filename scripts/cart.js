@@ -291,7 +291,7 @@ class ProductView {
     const img = initTag('img', null, this._root);
     img.src = `${src}.png`;
     img.alt = alt;
-    img.fetchpriority = 'high';
+    img.setAttribute('fetchpriority', 'high');
   }
 
   _initDetails = () => {
