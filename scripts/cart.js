@@ -189,6 +189,7 @@ class Card {
     const { src, alt } = this._track;
     img.src = `${src}-min.png`;
     img.alt = alt;
+    img.setAttribute('fetchpriority', 'high');
   }
 
   _details = () => {
