@@ -92,11 +92,13 @@ class Player {
     btn.id = 'player-btn';
     const img = initTag('img', null, btn);
     img.src = this._plays ? './assets/pause.svg' : './assets/play.svg';
+    img.alt = this._plays ? 'Pause' : 'Play';
     btn.addEventListener('click', () => {
       if(this._plays) this._root.pause();
       else this._root.play();
       this._plays = !this._plays;
       img.src = this._plays ? './assets/pause.svg' : './assets/play.svg';
+      img.alt = this._plays ? 'Pause' : 'Play';
     });
   }
 }
@@ -122,10 +124,9 @@ class ActBarView {
   _initInfoBtn = (ref) => {
     const infoBtn = initTag('button', null, this._root);
     infoBtn.id = 'info-btn';
-    infoBtn.setAttribute('aria-label', 'Information');
     const img = initTag('img', null, infoBtn);
     img.src = './assets/info.svg'; 
-    img.alt = '';
+    img.alt = 'Information';
     this._wireCurrent(infoBtn, ref);
   }
 
@@ -138,10 +139,9 @@ class ActBarView {
   _initCartBtn = (ref) => {
     const cartBtn = initTag('button', null, this._root);
     cartBtn.id = 'cart-btn';
-    cartBtn.setAttribute('aria-label', 'Add to Cart');
     const img = initTag('img', null, cartBtn);
     img.src = './assets/cart.svg';
-    img.alt = '';
+    img.alt = 'Cart';
     this._wireAdd(cartBtn, ref);
   }
 
@@ -161,10 +161,9 @@ class ActBarView {
   _initTrashBtn = (ref, cardHolder, card) => {
     const trashBtn = initTag('button', null, this._root);
     trashBtn.id = 'trash-btn';
-    trashBtn.setAttribute('aria-label', 'Remove from Cart');
     const img = initTag('img', null, trashBtn);
     img.src = './assets/trash.svg';
-    img.alt = '';
+    img.alt = 'Trash';
     this._wireRemove(trashBtn, ref, cardHolder, card);
   }
 
