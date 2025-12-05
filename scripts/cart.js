@@ -21,6 +21,13 @@ const getRef = (id) => {
   return document.getElementById(id);
 }
 
+const optImg = () => {
+  const link = initTag('link', null, document.head);
+  link.rel = 'preload';
+  link.href = src;
+  link.as = 'image';
+}
+
 const initTag = (type, css = null, parent = null, text = null) => {
   const tag = document.createElement(type);
   if(css) tag.classList.add(css);
@@ -187,6 +194,7 @@ class Card {
   _initImg = () => {
     const img = initTag('img', null, this._root);
     const { src, alt } = this._track;
+    optImg(src);
     img.src = `${src}-min.png`;
     img.alt = alt;
     img.setAttribute('fetchpriority', 'high');
@@ -290,6 +298,7 @@ class ProductView {
   _initImg = () => {
     const { src, alt } = this._track;
     const img = initTag('img', null, this._root);
+    optImg(src);
     img.src = `${src}.png`;
     img.alt = alt;
     img.setAttribute('fetchpriority', 'high');
