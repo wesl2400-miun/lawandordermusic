@@ -23,8 +23,8 @@
   box-sizing: border-box;
   display: block;
   background: linear-gradient(180deg, var(--brand-secondary), var(--brand-logo-background));
-  font-size: 22px;
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 600;
   color: var(--brand-on-secondary) !important;
   border-radius: 0;
   border: 1px var(--brand-on-secondary) solid;

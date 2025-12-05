@@ -125,6 +125,7 @@ class ActBarView {
     infoBtn.setAttribute('aria-label', 'Information');
     const img = initTag('img', null, infoBtn);
     img.src = './assets/info.svg'; 
+    img.alt = '';
     this._wireCurrent(infoBtn, ref);
   }
 
@@ -140,6 +141,7 @@ class ActBarView {
     cartBtn.setAttribute('aria-label', 'Add to Cart');
     const img = initTag('img', null, cartBtn);
     img.src = './assets/cart.svg';
+    img.alt = '';
     this._wireAdd(cartBtn, ref);
   }
 
@@ -162,6 +164,7 @@ class ActBarView {
     trashBtn.setAttribute('aria-label', 'Remove from Cart');
     const img = initTag('img', null, trashBtn);
     img.src = './assets/trash.svg';
+    img.alt = '';
     this._wireRemove(trashBtn, ref, cardHolder, card);
   }
 
@@ -184,7 +187,7 @@ class Card {
   _initImg = () => {
     const img = initTag('img', null, this._root);
     const { src, alt } = this._track;
-    img.src = src;
+    img.src = `${src}-min.png`;
     img.alt = alt;
   }
 
@@ -287,7 +290,7 @@ class ProductView {
   _initImg = () => {
     const { src, alt } = this._track;
     const img = initTag('img', null, this._root);
-    img.src = src;
+    img.src = `${src}.png`;
     img.alt = alt;
   }
 
@@ -306,48 +309,48 @@ window.addEventListener('load', () => {
   const tracks = new Map([
     [ REF.BULLETPROOF, new Track(
       REF.BULLETPROOF, 
-      './assets/images/bulletproof-cover.png',
+      './assets/images/bulletproof-cover',
       'Law & Order - Bulletproof - Single Cover',
       'Law & Order - Bulletproof',
-      './assets/audio/law_and_order_bulletproof.mp3',
+      './assets/audio/bulletproof.mp3',
       `A story about someone who easily brushes off a bulletrain of attacks like it's nothing.`,
-      './assets/videos/law_and_order_bulletproof.mp4',
+      './assets/videos/bulletproof.mp4',
       './assets/images/bulletproof-poster.png'
     )],
     [ REF.SURVEILLANCE, new Track(
       REF.SURVEILLANCE, 
-      './assets/images/surveillance-cover.png',
+      './assets/images/surveillance-cover',
       'Law & Order - Surveillance - Single Cover',
       'Law & Order - Surveillance',
-      './assets/audio/law_and_order_surveillance.mp3',
+      './assets/audio/surveillance.mp3',
       `A story about someone who is constantly watched by hostile people. `,
-      './assets/videos/law_and_order_surveillance.mp4',
+      './assets/videos/surveillance.mp4',
       './assets/images/surveillance-poster.png'
     )],
     [ REF.TWO_STEPS_AHEAD, new Track(
       REF.TWO_STEPS_AHEAD, 
-      './assets/images/two-steps-ahead-cover.png',
+      './assets/images/two-steps-ahead-cover',
       'Law & Order - Two Steps Ahead - Single Cover',
       'Law & Order - Two Steps Ahead',
-      './assets/audio/law_and_order_two_steps_ahead.mp3',
-      `A story about a person who can foresee their enemies' next moves and defend themself beforehand.`,
-      './assets/videos/law_and_order_two_steps_ahead.mp4',
+      './assets/audio/two-steps-ahead.mp3',
+      `A story about someone who can foresee their enemies' next moves and defend themself beforehand.`,
+      './assets/videos/two-steps-ahead-ov.mp4',
       './assets/images/two-steps-ahead-ov-poster.png'
     )],
     [ REF.UNTOUCHABLE, new Track(
       REF.UNTOUCHABLE, 
-      './assets/images/untouchable-cover.png',
+      './assets/images/untouchable-cover',
       'Law & Order - Untouchable - Single Cover',
       'Law & Order - Untouchable',
-      './assets/audio/law_and_order_untouchable.mp3',
-      `A story about a person who is impossible to take down.`
+      './assets/audio/untouchable.mp3',
+      `A story about someone who is impossible to take down.`
     )],
     [ REF.CONFRONTATION, new Track(
       REF.CONFRONTATION, 
-      './assets/images/confrontation-cover.png',
+      './assets/images/confrontation-cover',
       'Law & Order - Confrontation - Single Cover',
       'Law & Order - Confrontation',
-      './assets/audio/law_and_order_confrontation.mp3',
+      './assets/audio/confrontation.mp3',
       `A story about how open confrontation is sometimes the only path to true peace.`
     )]
   ]);
