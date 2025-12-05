@@ -125,6 +125,8 @@ class ActBarView {
     const infoBtn = initTag('button', null, this._root);
     infoBtn.id = 'info-btn';
     const img = initTag('img', null, infoBtn);
+    img.width = '30';
+    img.height = '30';
     img.src = './assets/info.svg'; 
     img.alt = 'Information';
     this._wireCurrent(infoBtn, ref);
@@ -140,6 +142,8 @@ class ActBarView {
     const cartBtn = initTag('button', null, this._root);
     cartBtn.id = 'cart-btn';
     const img = initTag('img', null, cartBtn);
+    img.width = '30';
+    img.height = '30';
     img.src = './assets/cart.svg';
     img.alt = 'Cart';
     this._wireAdd(cartBtn, ref);
@@ -162,6 +166,8 @@ class ActBarView {
     const trashBtn = initTag('button', null, this._root);
     trashBtn.id = 'trash-btn';
     const img = initTag('img', null, trashBtn);
+    img.width = '30';
+    img.height = '30';
     img.src = './assets/trash.svg';
     img.alt = 'Trash';
     this._wireRemove(trashBtn, ref, cardHolder, card);
@@ -186,6 +192,8 @@ class Card {
   _initImg = () => {
     const img = initTag('img', null, this._root);
     const { src, alt } = this._track;
+    img.width = '100';
+    img.height = '100';
     img.src = `${src}-min.png`;
     img.alt = alt;
     img.setAttribute('fetchpriority', 'high');
@@ -281,6 +289,8 @@ class ProductView {
     video.preload = 'none';
     video.controls = true;
     video.poster = poster;
+    video.width = '280';
+    video.height = '150';
     const source = initTag('source', null, video);
     source.type = 'video/mp4';
     source.src = mpeg;
@@ -290,6 +300,8 @@ class ProductView {
     const { src, alt } = this._track;
     const img = initTag('img', null, this._root);
     img.src = `${src}.png`;
+    img.width = '280';
+    img.height = '280'
     img.alt = alt;
     img.setAttribute('fetchpriority', 'high');
   }

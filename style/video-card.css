@@ -1,5 +1,6 @@
 .video-card {
   width: 100%;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,6 +18,7 @@
 
 .video-card .clip {
   width: 100%;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +27,7 @@
 
 .video-card .clip video {
   aspect-ratio: 16 / 9;
-  width: 100%;
+  width: 100vw;
+  height: auto;
   border-radius: 5px;
 }
