@@ -187,7 +187,6 @@ class Card {
   _initImg = () => {
     const img = initTag('img', null, this._root);
     const { src, alt } = this._track;
-    this._optImg(src);
     img.src = `${src}-min.png`;
     img.alt = alt;
     img.setAttribute('fetchpriority', 'high');
