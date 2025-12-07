@@ -6,7 +6,7 @@
     <meta name="description" content="Your shopping cart. Buy experimental Drum & Bass tracks just for $2 each. Noisy basses and catchy melodies.">
     <title>Cart - Buy Drum & Bass Tracks | Law & Order Official Site</title>
 
-    <!-- Prestanda optimeringen - ladda ner dessa stilar så fort som möjligt -->
+    <!-- Prestanda optimeringen - ladda ner root.css stilen så fort som möjligt -->
     <link rel="preload" href="./style/root.css" as="style">
 
     <!-- Hämta CSS stilar -->
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="./style/store-card.css">
     <link rel="stylesheet" href="./style/dialog.css">
 
-    <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte tolkas -->
+    <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte kan tolkas -->
     <link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg">
     <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
@@ -32,7 +32,7 @@
     <!-- Detta är 'manifest-filen för Android enheter -->
     <link rel="manifest" href="./assets/favicon/site.webmanifest">
 
-    <!-- Hämta Rethink Sans teckensnitt från Google API -->
+    <!-- Hämta Rethink Sans teckensnitt från Google API så fort som möjligt  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" as="style">
@@ -40,7 +40,7 @@
 
   </head>
   <body>
-    <!-- Sidhuvud -->
+    <!-- Sidhuvudet -->
     <header>
       <nav class="nav">
 
@@ -65,7 +65,7 @@
         </ul>
       </nav>
     </header>
-    <!-- Huvudinnehållet -->
+    <!-- Huvudinnehållet (Produktkorten genereras dynamiskt med hjälp av 'cart.js' skriptet) -->
     <main id="main">
       <h1>Cart</h1>
       <button id="buy-btn" class="button">PURCHASE</button>
@@ -76,6 +76,7 @@
       </section>
     </main>
 
+    <!-- Dialogrutan -->
     <div role="presentation" id="modal"></div>
     <div role="dialog" id="dialog" class="dialog" aria-labelledby="dialog-title">
       <h3 id="dialog-title">Transaction Succeeded</h3>
@@ -84,12 +85,15 @@
       <button id="ok-btn" class="button">OK</button>
     </div>
 
+    <!-- Sidfoten-->
     <footer class="footer">
       <a href="./about.html">About Website (Swedish)</a>
     </footer>
 
     <!-- Kör logiken för navigeringsmenyn -->
     <script defer src="./scripts/menu.js"></script>
+
+    <!-- Kör logiken för webbutiken -->
     <script defer src="./scripts/cart.js"></script>
   </body>
 </html>

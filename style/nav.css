@@ -1,4 +1,4 @@
-/** Stilisera navigationsfältet **/
+/** Stilen navigationsmenyn **/
 .nav {
   width: 100%;
   display: flex;
@@ -7,7 +7,7 @@
   flex-direction: column;
 }
 
-/** Ta bort stilen från navigerinsknappen, eftersom navigerinsbilden ska ersätta stilen **/
+/** Stilen för navigeringsknappen (den lilla sex-prickars ikon) **/
 .nav button {
   width: inherit;
   height: var(--nav-height);
@@ -19,6 +19,7 @@
   padding-right: 0.6rem;
 }
 
+/** Stilen för  navigeringsrutterna  **/
 #routes {
   width: inherit;
   height: var(--nav-height-collapsed);
@@ -43,12 +44,14 @@
   border-top: 1px var(--brand-on-background) solid;
 }
 
+/** Stilen för den aktuella rutten **/
 #routes .selected {
   color: var(--brand-primary);
   text-decoration: none;
   list-style: none;
 }
 
+/** Anpassa stilen på rutterna baserat på om musen täcker rutterna eller om de pressas **/
 #routes a, a:link, a:visited {
   display: block;
   text-decoration: none;
@@ -65,11 +68,13 @@
 }
 
 #menu-btn {
+  display: block;
   height: 30px;
   width: 30px;
   cursor: pointer;
 }
 
+/** Anpassa navigerinsmenyn efter större skärmar (utlöser navigeringsmenyn för desktop och tablet versionen) **/
 @media screen and (min-width: 500px) {
   .nav button {
     display: none;

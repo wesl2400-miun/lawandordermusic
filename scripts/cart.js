@@ -1,11 +1,15 @@
+// Hela koden ansvarar för webbutikens logik; det vill säga tilläggning och borttagning av produkter
 
+// Sökvägen för antigen den publicerade eller den lokala webbplatsen
 const ENVIRONMENT = Object.freeze({
   PRODUCTION: 'https://wesl2400-miun.github.io/lawandordermusic/',
   DEV: 'http://127.0.0.1:5500/'
 });
 
+// Bassökvägen som ska utgås ifrån, använd PRODUCTION när webbplatsen publiceras
 const BASE_URL = ENVIRONMENT.PRODUCTION;
 
+// Referenser till undersidor och produkter i produktmappen
 const REF = Object.freeze({
   STORE: `${BASE_URL}store.html`,
   CART: `${BASE_URL}cart.html`,
@@ -17,10 +21,12 @@ const REF = Object.freeze({
   CONFRONTATION: 'confrontation'
 });
 
+// Referera till en existerande HTML-tagg
 const getRef = (id) => {
   return document.getElementById(id);
 }
 
+// Skapa ny HTML tagg
 const initTag = (type, css = null, parent = null, text = null) => {
   const tag = document.createElement(type);
   if(css) tag.classList.add(css);
@@ -29,6 +35,7 @@ const initTag = (type, css = null, parent = null, text = null) => {
   return tag;
 }
 
+// Spara all information om en specifik produkt i denna modellklass
 class Track {
   constructor(ref, src, alt, title, mp3, desc, mpeg, poster) {
     this.ref = ref;
@@ -43,6 +50,7 @@ class Track {
   }
 }
 
+// Ansvarar för dialogrutan som visas på webbplatsen när köpte bekräftas och när samma produkt läggs till i varukorgen
 class DialogView {
   constructor() {
     this._modal = getRef('modal');
@@ -51,6 +59,8 @@ class DialogView {
     this._updateDialog();
     this._wire();
   }
+
+  // Uppdatera dialogrutan
   _updateDialog = (isVisible = true) => {
     const visibility = isVisible ? 'flex' : 'none';
     this._modal = getRef('modal');
@@ -59,6 +69,7 @@ class DialogView {
     this._dialog.style.display = visibility;
   }
 
+  // Stäng dialogrutan när OK-knappen pressas
    _wire = () => {
     this._okBtn.addEventListener('click', () => {
       this._updateDialog(false);
@@ -67,6 +78,7 @@ class DialogView {
 
 }
 
+// Visar titeln och priset i produkt-kortet
 class DetailsView {
   constructor(parent, track) {
     this.root = initTag('div', 'store-card__details', parent);
@@ -76,6 +88,7 @@ class DetailsView {
   }
 }
 
+// Hanterar logiken och utseendet för ljuspelarknappen
 class Player {
   constructor(parent, mp3) {
     this._root = initTag('audio', null, parent, 'Audio Player not supported');
@@ -87,6 +100,7 @@ class Player {
     this._initControls(parent);
   }
 
+  // Designa en skräddarsydd knapp som reagerar på klick
   _initControls = (parent) => {
     const btn = initTag('button', null, parent);
     btn.id = 'player-btn';
@@ -103,12 +117,14 @@ class Player {
   }
 }
 
+// Hanterar logiken bakom alla knappar i produkt-kortet för både 'Store' och 'Cart' undersidorna
 class ActBarView {
   constructor(parent, track) {
     this._root = initTag('div', 'store-card__action-bar', parent);
     this._track = track;
   }
 
+  // Konfigurationen för 'Store' undersidan
   storeConfig = () => {
     const { ref, mp3 } = this._track;
     this._initInfoBtn(ref); 
@@ -116,11 +132,13 @@ class ActBarView {
     new Player(this._root, mp3);
   }
   
+  // Konfigurationen för 'Cart' undersidan
   cartConfig = (cardHolder, card) => {
     const { ref } = this._track;
     this._initTrashBtn(ref, cardHolder, card);
   }
 
+  // Logiken för info-knappen
   _initInfoBtn = (ref) => {
     const infoBtn = initTag('button', null, this._root);
     infoBtn.id = 'info-btn';
@@ -132,12 +150,14 @@ class ActBarView {
     this._wireCurrent(infoBtn, ref);
   }
 
+  // Skicka referensen till den produkten som för närvarande klickas en till produkt undersidan (detta sker via info-knappen)
   _wireCurrent = (tag, ref) => {
     tag.addEventListener('click', () => {
       window.location.href = `${REF.PRODUCT}?track=${encodeURIComponent(ref)}`;
     });
   }
 
+  // Hantera logiken för 'lägg till varukorgen'-knappen
   _initCartBtn = (ref) => {
     const cartBtn = initTag('button', null, this._root);
     cartBtn.id = 'cart-btn';
@@ -149,6 +169,7 @@ class ActBarView {
     this._wireAdd(cartBtn, ref);
   }
 
+  // Spara produkten i sessionStorage när 'lägg till' knappen klickas
   _wireAdd = (tag, ref,) => {
     tag.addEventListener('click', () => {
       const item = sessionStorage.getItem(ref);
@@ -162,6 +183,7 @@ class ActBarView {
     });
   }
 
+  // Hantera logiken för ta-bort kanppen
   _initTrashBtn = (ref, cardHolder, card) => {
     const trashBtn = initTag('button', null, this._root);
     trashBtn.id = 'trash-btn';
@@ -173,6 +195,7 @@ class ActBarView {
     this._wireRemove(trashBtn, ref, cardHolder, card);
   }
 
+  // Ta bort produkten från sessionStorage och dess kort från webbplatsen
   _wireRemove = (tag, ref, cardHolder, card) => {
     tag.addEventListener('click', () => {
       sessionStorage.removeItem(ref);
@@ -181,6 +204,7 @@ class ActBarView {
   }
 }
 
+// Ansvarar för produktkort vyn
 class Card {
   constructor(track, cardHolder) {
     this._root = initTag('li', 'store-card', cardHolder);
@@ -189,6 +213,7 @@ class Card {
     this._initImg();
   }
 
+  // Sätt upp bilden för produkten
   _initImg = () => {
     const img = initTag('img', null, this._root);
     const { src, alt } = this._track;
@@ -199,18 +224,21 @@ class Card {
     img.setAttribute('fetchpriority', 'high');
   }
 
+  // Lägg till titeln och priset
   _details = () => {
     const details = new DetailsView(
       this._root, this._track);
     return details.root;
   }
 
+  // Konfigurationen för 'Store' undersidan
   storeConfig = () => {
     const actBar = new ActBarView(
       this._details(), this._track);
     actBar.storeConfig();
   }
 
+  // Konfigurationen för 'Cart' undersidan
   cartConfig = () => {
     const actBar = new ActBarView(
       this._details(), this._track);
@@ -218,6 +246,7 @@ class Card {
   }
 }
 
+// Generar kort för 'Store' undersidan
 class StoreView {
   constructor(tracks, main) {
     this._cardHolder = initTag('ul', 'card-holder', main);
@@ -225,6 +254,7 @@ class StoreView {
     this._wireCartBtn();
   }
 
+  // Generera kort
   _render = (tracks) => {
     for(const [_, track] of tracks) {
       const card = new Card(track, this._cardHolder);
@@ -232,7 +262,8 @@ class StoreView {
     }
   }
 
-    _wireCartBtn = () => {
+  // Sätt upp den rosa 'Varukorg' knappen som sitter ovanpå produktkorten
+  _wireCartBtn = () => {
     const cartBtn = getRef('cart-btn');
     const cartCounter = sessionStorage.length;
     cartBtn.textContent = `GO TO CART: ${cartCounter}`;
@@ -242,6 +273,7 @@ class StoreView {
   }
 }
 
+// Generar kort för 'Cart' undersidan
 class CartView {
   constructor(tracks, main) {
     this._cardHolder = initTag('ul', 'card-holder', main);
@@ -249,6 +281,7 @@ class CartView {
     this._wireBuyBtn();
   }
 
+  // Sätt upp den rosa 'Purchase' knappen som sitter ovanpå produktkorten
   _wireBuyBtn = () => {
     const buyBtn = getRef('buy-btn');
     buyBtn.addEventListener('click', () => {
@@ -258,6 +291,7 @@ class CartView {
     });
   }
 
+  // Generera kort
   _render = (tracks) => {
     for(const key of Object.keys(sessionStorage)) {
       const track = tracks.get(key);
@@ -269,6 +303,7 @@ class CartView {
   }
 }
 
+// Generara huvudinnehållet för produktundersidan
 class ProductView {
   constructor(parent, ref, tracks) {
     this._parent = parent;
@@ -279,6 +314,7 @@ class ProductView {
     this._initVideo();
   }
 
+  // Sätt upp filmen för den specifika produkten
   _initVideo = () => {
     const { title, mpeg, poster } = this._track;
     if(!mpeg) return;
@@ -296,6 +332,7 @@ class ProductView {
     source.src = mpeg;
   }
 
+  // Sätt upp produktens bild
   _initImg = () => {
     const { src, alt } = this._track;
     const img = initTag('img', null, this._root);
@@ -306,6 +343,7 @@ class ProductView {
     img.setAttribute('fetchpriority', 'high');
   }
 
+  // Sätt upp titeln och beskriviningen för den specifika produkten
   _initDetails = () => {
     const { title, desc } = this._track;
     const pageTitle = getRef('page-title');
@@ -317,7 +355,10 @@ class ProductView {
   }
 }
 
+// Kör denna kod när laddningen av alla filer är klar
 window.addEventListener('load', () => {
+
+  // Produktlistan med alla detaljer
   const tracks = new Map([
     [ REF.BULLETPROOF, new Track(
       REF.BULLETPROOF, 
@@ -367,9 +408,13 @@ window.addEventListener('load', () => {
     )]
   ]);
 
+  // Hämta referens till huvudinnehållets behållare
   const main = getRef('main');
 
+  // Hämta den aktuella sidans address
   const path = window.location.href;
+
+  // Generara lämplig vy beroende på vilekn undersida som aktuellet visas
   if(path === REF.STORE) {
     new StoreView(tracks, main);
   } else if(path === REF.CART) {

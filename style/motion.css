@@ -1,3 +1,4 @@
+/** Animationerna för den hopfällbara menyn **/
 @keyframes open-menu {
   from {
     height: var(--nav-height);

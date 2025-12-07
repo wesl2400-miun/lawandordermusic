@@ -1,3 +1,4 @@
+/** Stilen för kortet som visar filmer **/
 .video-card {
   width: var(--card-w-mobile);
   height: auto;
@@ -16,6 +17,8 @@
   gap: 0.5rem;
 }
 
+
+/** Stilen för videotagg-behållaren **/
 .video-card .clip {
   width: 100%;
   height: auto;
@@ -25,6 +28,7 @@
 
 }
 
+/** Stilen för videotaggen - Behåll det rätta bildförhållandet **/
 .video-card .clip video {
   aspect-ratio: 16 / 9;
   width: 100vw;
@@ -32,6 +36,7 @@
   border-radius: 5px;
 }
 
+/** Anpassa video-kortet till desktop och tablet versionen **/
 @media screen and (min-width: 700px) {
   .video-card {
     width: var(--card-w-desktop);

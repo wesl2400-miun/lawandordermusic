@@ -1,3 +1,4 @@
+/** Vyn täcker hela webbplatsen och är lite genomskinlig - utgör bakgrunden för dialogrutan **/
 #modal {
   position: fixed;
   display: none;
@@ -13,6 +14,7 @@
   opacity: 90%;
 }
 
+/** Stilen för dialogrutan **/
 #dialog {
   position: fixed;
   top: 20%;
@@ -53,6 +55,7 @@
   border-radius: 0 !important;
 }
 
+/** Anpassa dialogrutan till mindre skärmar **/
 @media screen and (min-width: 500px) {
   #dialog {
     width: 70%;

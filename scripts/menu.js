@@ -1,7 +1,7 @@
-/** Kör denna kod när laddningen av alla filer är klar **/
+// Kör denna kod när laddningen av alla filer är klar - Ansvarar för navigerinsmenyn
 window.addEventListener('load', () => {
 
-  /** Hämta referenserna till meny-knappen och rutterna i navigeringsmenyn **/
+  // Hämta referenserna till meny-knappen och rutterna i navigeringsmenyn
   const menuBtn = document.getElementById('menu-btn');
   const routes = document.getElementById('routes');
   const main = document.getElementById('main');
@@ -9,23 +9,51 @@ window.addEventListener('load', () => {
   let closed = true;
   const iconPath = './assets/';
 
-  /** Visa eller dölj navigeringsmenyn, byt bilden på den och lägg till eller ta bort animationen från den **/
-  const modify = (tag, display, animation) => {
-    tag.style.display = display;
-    tag.style.animation = animation;
-  };
-  
-  /** Öppna eller stäng navigeringsmenyn beroende på 'closed' flaggan **/
+  // Fäll ihop navigerinsmenyn
+  const closeMenu = () => {
+    menuBtn.src = `${iconPath}menu-closed.svg`;
+    routes.style.display = 'none';
+    main.style.display = 'flex';
+    main.style.animation = 'close-menu 0.4s ease-out';
+    closed = true;
+  }
+
+  // Utök navigeringsmenyn
+  const openMenu = () => {
+    menuBtn.src = `${iconPath}menu-open.svg`;
+    routes.style.display = 'flex';
+    routes.style.animation = 'open-menu 0.3s ease-out';
+    main.style.display = 'none';
+    closed = false;
+  }
+
+  // Använd en icke-hopfällbar navigeringsmeny
+  const resetMenu = () => {
+    menuBtn.style.display = 'none';
+    routes.style.display = 'flex';
+    routes.style.animation = 'none';
+    main.style.display = 'flex';
+    main.style.animation = 'none';
+  }
+
+  // Gör navigeringsmenyn hopfällbar
+  const applyMenu = () => {
+    menuBtn.style.display = 'block';
+    menuBtn.src = `${iconPath}menu-closed.svg`;
+    routes.style.display = 'none';
+    main.style.display = 'flex';
+    closed = true;
+  }
+ 
+  // Låt meny-knappen reagera på klick event
   menuBtn.addEventListener('click', () => {
-    if(closed) {
-      menuBtn.setAttribute('src', `${iconPath}menu-open.svg`);
-      modify(routes, 'flex', 'open-menu 0.3s ease-out');
-      modify(main, 'none', 'none');
-    } else {
-      menuBtn.setAttribute('src', `${iconPath}menu-closed.svg`);
-      modify(routes, 'none', 'none');
-      modify(main, 'flex', 'close-menu 0.4s ease-out');
-    }
-    closed = !closed;
+    if(closed) openMenu();
+    else closeMenu();
+  });
+
+  // Ta bort eller applicera en hopfällbar meny beroende på fönsterbreeden och kolla upp detta i realtid
+  window.addEventListener('resize', () => {
+    if(window.innerWidth >= 500) resetMenu();
+    else applyMenu();
   });
 });

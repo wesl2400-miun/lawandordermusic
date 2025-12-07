@@ -6,7 +6,7 @@
     <meta name="description" content="Read more about this unique experimental drum & bass track. Read the story behind it and enjoy its cover image.">
     <title>Drum'N'Bass Track - Read description | Law & Order Official Site</title>
 
-    <!-- Prestanda optimeringen - ladda ner dessa stilar så fort som möjligt -->
+    <!-- Prestanda optimeringen - ladda ner root.css stilen så fort som möjligt -->
     <link rel="preload" href="./style/root.css" as="style">
 
     <!-- Hämta CSS stilar -->
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="./style/basic-card.css">
     <link rel="stylesheet" href="./style/video-card.css">
 
-    <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte tolkas -->
+    <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte kan tolkas -->
     <link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg">
     <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
@@ -31,7 +31,7 @@
     <!-- Detta är 'manifest-filen för Android enheter -->
     <link rel="manifest" href="./assets/favicon/site.webmanifest">
 
-    <!-- Hämta Rethink Sans teckensnitt från Google API -->
+    <!-- Hämta Rethink Sans teckensnitt från Google API så fort som möjligt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" as="style">
@@ -39,7 +39,7 @@
 
   </head>
   <body>
-    <!-- Sidhuvud -->
+    <!-- Sidhuvudet -->
     <header>
       <nav class="nav">
 
@@ -64,17 +64,21 @@
         </ul>
       </nav>
     </header>
-    <!-- Huvudinnehållet -->
+    <!-- Huvudinnehållet (Generas dynamiskt med hjälp av 'cart.js' skriptet) -->
     <main id="main">
       <h1 id="page-title">Product Info</h1>
       <a href="./store.html" class="button-anchor">BACK TO CART</a>
     </main>
 
+    <!-- Sidfoten -->
     <footer class="footer">
       <a href="./about.html">About Website (Swedish)</a>
     </footer>
 
+    <!-- Kör logiken för navigeringsmenyn -->
     <script defer src="./scripts/menu.js"></script>
+
+    <!-- Kör logiken för webbutiken -->
     <script defer src="./scripts/cart.js"></script>
   </body>
 </html>

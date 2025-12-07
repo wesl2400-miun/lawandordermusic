@@ -6,7 +6,7 @@
     <meta name="description" content="Watch drum & bass videos. See unique video-editing techniques like sketch filters and creative overcompression effects.">
     <title>Videos - Watch Drum & Bass Music Clips | Law & Order Official Site</title>
 
-    <!-- Prestanda optimeringen - ladda ner dessa stilar så fort som möjligt -->
+    <!-- Prestanda optimeringen - ladda ner root.css stilen så fort som möjligt -->
     <link rel="preload" href="./style/root.css" as="style">
 
     <!-- Hämta CSS stilar -->
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="./style/footer.css">
     <link rel="stylesheet" href="./style/video-card.css">
 
-    <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte tolkas -->
+    <!-- Här är favicon för olika enheter för säkerhets skull, i fall svg inte kan tolkas -->
     <link rel="icon" type="image/png" href="./assets/favicon/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg">
     <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
@@ -29,14 +29,14 @@
     <!-- Detta är 'manifest-filen för Android enheter -->
     <link rel="manifest" href="./assets/favicon/site.webmanifest">
 
-     <!-- Hämta Rethink Sans teckensnitt från Google API -->
+     <!-- Hämta Rethink Sans teckensnitt från Google API så fort som möjligt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" as="style">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap">
   </head>
   <body>
-    <!-- Sidhuvud -->
+    <!-- Sidhuvudet -->
     <header>
       <nav class="nav">
 
@@ -65,6 +65,8 @@
     <!-- Huvudinnehållet -->
     <main id="main">
       <h1>Videos</h1>
+
+      <!-- Optimera alla filmer och sätt titelkort på dem -->
       <section class="video-card">
         <h2>Watch Bulletproof - Official Video</h2>
         <video width="280" height="150" class="clip" controls preload="none" poster="./assets/images/bulletproof-poster.png">
@@ -91,6 +93,7 @@
       </section>
     </main>
 
+    <!-- Sidfoten -->
     <footer class="footer">
       <a href="./about.html">About Website (Swedish)</a>
     </footer>

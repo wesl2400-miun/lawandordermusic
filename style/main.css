@@ -1,3 +1,4 @@
+/** Stilen för huvudinnehållets behållare **/
 #main {
   min-height: 100vh;
   padding: 0;
@@ -37,6 +38,7 @@
   flex-direction: column;
 }
 
+/** Stilisera länkarna inuti huvudinnehållets behållare **/
 .anchor:link, 
 .anchor:link, 
 .anchor:visited, 

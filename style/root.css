@@ -26,7 +26,7 @@
   --card-w-desktop: 60%;
 }
 
-/** Stilisera body-taggen och gör den anpassbar **/
+/** Stilen för body-taggen - gör den responsiv **/
 body {
   width: var(--full-vw);
   display: flex;
@@ -37,6 +37,7 @@ body {
   padding: 0;
 }
 
+/** Stilen för alla rubriker och paragrafer som används på webbplatsen **/
 h2, h3, p {
   font-size: 16px;
   padding: 0;
