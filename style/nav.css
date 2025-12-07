@@ -1,6 +1,6 @@
 /** Stilisera navigationsfältet **/
 .nav {
-  width: var(--full-vw);
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,7 @@
 
 /** Ta bort stilen från navigerinsknappen, eftersom navigerinsbilden ska ersätta stilen **/
 .nav button {
-  width: var(--full-vw);
+  width: inherit;
   height: var(--nav-height);
   display: flex;
   justify-content: end;
@@ -20,7 +20,7 @@
 }
 
 #routes {
-  width: var(--full-vw);
+  width: inherit;
   height: var(--nav-height-collapsed);
   display: none;
   justify-content: start;
@@ -68,4 +68,28 @@
   height: 30px;
   width: 30px;
   cursor: pointer;
+}
+
+@media screen and (min-width: 500px) {
+  .nav button {
+    display: none;
+  }
+
+  #routes {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  #routes li,
+  #routes li:last-child {
+    width: fit-content;
+    border: none;
+  }
+
+  #routes li a {
+    padding: 0 1rem;
+  }
 }

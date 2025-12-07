@@ -22,6 +22,8 @@
   --footer-height: 60px;
   --action-icon-w: 30px;
   --action-icon-h: 30px;
+  --card-w-mobile: 95%;
+  --card-w-desktop: 60%;
 }
 
 /** Stilisera body-taggen och gör den anpassbar **/

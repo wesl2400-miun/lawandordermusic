@@ -1,9 +1,9 @@
 .basic-card {
+  width: var(--card-w-mobile);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 95%;
   box-sizing: border-box;
   padding: 1rem;
   margin-top: 1rem;
@@ -12,4 +12,10 @@
   color: var(--brand-on-background);
   border-radius: 5px;
   gap: 0.3rem;
+}
+
+@media screen and (min-width: 700px) {
+  .basic-card {
+    width: var(--card-w-desktop);
+  }
 }

@@ -24,7 +24,7 @@
   display: block;
   background: linear-gradient(180deg, var(--brand-secondary), var(--brand-logo-background));
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 750;
   color: var(--brand-on-secondary) !important;
   border-radius: 0;
   border: 1px var(--brand-on-secondary) solid;
@@ -39,4 +39,12 @@
 .button:active,
 .button-anchor:active {
   background: linear-gradient(60deg, var(--brand-secondary), var(--brand-logo-background));
+}
+
+@media screen and (min-width: 700px) {
+  .button, .button-anchor {
+    width: var(--card-w-desktop);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
 }

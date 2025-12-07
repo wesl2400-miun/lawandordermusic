@@ -49,5 +49,18 @@
 }
 
 #dialog .button {
-  width: inherit;
+  width: 95%;
+  border-radius: 0 !important;
+}
+
+@media screen and (min-width: 500px) {
+  #dialog {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  #dialog {
+    width: 40%;
+  }
 }
