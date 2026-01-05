@@ -7,7 +7,7 @@ const ENVIRONMENT = Object.freeze({
 });
 
 // Bassökvägen som ska utgås ifrån, använd PRODUCTION när webbplatsen publiceras
-const BASE_URL = ENVIRONMENT.DEV;
+const BASE_URL = ENVIRONMENT.PRODUCTION;
 
 // Referenser till undersidor och produkter i produktmappen
 const REF = Object.freeze({
