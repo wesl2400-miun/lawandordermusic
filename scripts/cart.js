@@ -7,7 +7,7 @@ const ENVIRONMENT = Object.freeze({
 });
 
 // Bassökvägen som ska utgås ifrån, använd PRODUCTION när webbplatsen publiceras
-const BASE_URL = ENVIRONMENT.PRODUCTION;
+const BASE_URL = ENVIRONMENT.DEV;
 
 // Referenser till undersidor och produkter i produktmappen
 const REF = Object.freeze({
@@ -33,6 +33,61 @@ const initTag = (type, css = null, parent = null, text = null) => {
   if(parent) parent.appendChild(tag);
   if(text) tag.textContent = text;
   return tag;
+}
+
+// Skapa en source tag - Avsedd för repsonsiva bilder
+const initSrcTag = (parent, path, type, brPoint) => {
+  const source = initTag('source', null, parent);
+  if(brPoint) source.media = `(min-width: ${brPoint}px)`;
+  source.srcset = path;
+  source.type = `image/${type}`;
+  return source;
+}
+
+// Skapa en bild-tagg
+const initImgTag = (parent, src, alt) => {
+  const img = initTag('img', null, parent);
+  img.alt = alt;
+  img.src = src;
+  img.setAttribute('fetchpriority', 'high');
+}
+
+// Hanterar repsonsiva bilder för produkter
+class Picture {
+  constructor(parent, src, alt, cover = true) {
+    const root = initTag('picture', null, parent);
+    if(cover) this._initCover(root, src, alt);
+    else this._initThumbImg(root, src, alt);
+  }
+
+  // Sätt upp bilden för desktop
+  _initCover = (root, src, alt) => {
+    // Desktop
+    initSrcTag(root, `${src}-800h.webp`, 'webp', '1400');
+    initSrcTag(root, `${src}-800h.png`, 'png', '1400');
+
+    // Surplatta
+    initSrcTag(root, `${src}-500h.webp`, 'webp', '900');
+    initSrcTag(root, `${src}-500h.png`, 'png', '900');
+
+    // Mobil
+    initSrcTag(root, `${src}-280h.webp`, 'webp', null);
+    initImgTag(root, `${src}-280h.png`, alt);
+  }
+
+  _initThumbImg = (root, src, alt) => {
+    // Desktop
+    initSrcTag(root, `${src}-280h.webp`, 'webp', '1400');
+    initSrcTag(root, `${src}-280h.png`, 'png', '1400');
+
+    // Surplatta
+    initSrcTag(root, `${src}-200h.webp`, 'webp', '900');
+    initSrcTag(root, `${src}-200h.png`, 'png', '900');
+
+    // Mobil
+    initSrcTag(root, `${src}-100h.webp 1x, ${src}-200h.webp 2x`, 'webp', null);
+    initImgTag(root, `${src}-100h.png`, alt);
+  }
 }
 
 // Spara all information om en specifik produkt i denna modellklass
@@ -210,18 +265,13 @@ class Card {
     this._root = initTag('li', 'store-card', cardHolder);
     this._cardHolder = cardHolder;
     this._track = track;
-    this._initImg();
+    this._initThumbImg();
   }
 
   // Sätt upp bilden för produkten
-  _initImg = () => {
-    const img = initTag('img', null, this._root);
+  _initThumbImg = () => {
     const { src, alt } = this._track;
-    img.width = '100';
-    img.height = '100';
-    img.src = `${src}-min.png`;
-    img.alt = alt;
-    img.setAttribute('fetchpriority', 'high');
+    new Picture(this._root, src, alt, false);
   }
 
   // Lägg till titeln och priset
@@ -309,7 +359,7 @@ class ProductView {
     this._parent = parent;
     this._root = initTag('section', 'basic-card', this._parent);
     this._track = tracks.get(ref);
-    this._initImg();
+    this._initCover();
     this._initDetails();
     this._initVideo();
   }
@@ -333,14 +383,9 @@ class ProductView {
   }
 
   // Sätt upp produktens bild
-  _initImg = () => {
+  _initCover = () => {
     const { src, alt } = this._track;
-    const img = initTag('img', null, this._root);
-    img.src = `${src}.png`;
-    img.width = '280';
-    img.height = '280'
-    img.alt = alt;
-    img.setAttribute('fetchpriority', 'high');
+    new Picture(this._root, src, alt);
   }
 
   // Sätt upp titeln och beskriviningen för den specifika produkten
